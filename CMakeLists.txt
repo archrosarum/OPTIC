@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(${LIBRARY_NAME}
     src/root/root.cpp
+    src/window/window.cpp
 )
 
 find_package(SDL3 REQUIRED)
