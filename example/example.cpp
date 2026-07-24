@@ -1,4 +1,4 @@
-#include "OPTIC.h"
+#include "OPTIC/OPTIC.h"
 #include <iostream>
 
 int main(int argc, char* argv[]) {

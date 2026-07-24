@@ -1,3 +1,3 @@
 int foo() {
-    return 69;
+    return 7;
 }
