@@ -9,10 +9,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-
 add_library(${LIBRARY_NAME}
-    src/root.cpp
+    src/root/root.cpp
 )
+
+find_package(SDL3 REQUIRED)
+
+target_link_libraries(${LIBRARY_NAME} PUBLIC SDL3::SDL3)
 
 target_include_directories(${LIBRARY_NAME}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
