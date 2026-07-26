@@ -2,7 +2,7 @@
 
 int main() {
 
-    OPTIC::Init();  // Cues OPTIC to set up the needed things for creating UI elements.
+    OPTIC::Init();                      // Cues OPTIC to set up the needed things for creating UI elements.
 
     OPTIC::Create::Window("main")       // Creates a window and give it an identifier.
         ->ModifyTitle("Invisible name")     // Gives the window a visible title.
