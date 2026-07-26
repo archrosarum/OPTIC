@@ -28,3 +28,8 @@ namespace OPTIC::Create {
 
     OPTIC::Window* Window(std::string identifier);
 }
+
+
+namespace OPTIC::Get {
+    OPTIC::Window* Window(std::string identifier);
+}
