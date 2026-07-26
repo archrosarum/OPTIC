@@ -7,6 +7,9 @@ class Root {
 public:
     Root();
     ~Root();
+    std::vector<std::pair<std::string, OPTIC::Window*>> children;
 private:
-    std::vector<Window> Children;
+    
 };
+
+

@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(${LIBRARY_NAME}
+    src/runtime/runtime.cpp
     src/root/root.cpp
     src/window/window.cpp
 )

@@ -1,8 +1,14 @@
 #include "OPTIC/OPTIC.h"
-#include <iostream>
 
-int main(int argc, char* argv[]) {
-    Root root;
-    
-    return 0;
+int main() {
+
+    OPTIC::Init();
+
+    OPTIC::Create::Window("main")
+        ->ModifyTitle("Main")
+        ->ModifySize(800, 600);
+
+    while (OPTIC::running) {
+        OPTIC::Tick();
+    }
 }
