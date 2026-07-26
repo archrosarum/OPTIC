@@ -8,6 +8,8 @@ namespace OPTIC {
     public:
         Window();
         ~Window();
+
+        void Build();
         
         OPTIC::Window* ModifyTitle(std::string new_title);
         std::string title;
@@ -19,7 +21,7 @@ namespace OPTIC {
         SDL_Window* sdl_window;
         SDL_Renderer* sdl_renderer;
     private:
-        
+        bool finished = false;
     };
 }
 
