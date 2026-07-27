@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../root/root.h"
 #include "../window/window.h"
+
 
 namespace OPTIC {
     class Runtime {
