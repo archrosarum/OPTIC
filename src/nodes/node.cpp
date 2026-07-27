@@ -10,6 +10,18 @@ namespace OPTIC {
 
     }
 
+    void Node::set_parent(OPTIC::Window* new_parent) {
+        this->parent = new_parent;
+    }
+
+    OPTIC::Window* Node::get_parent() {
+        return this->parent;
+    }
+
+    void Node::tick() {
+        // to be overwritten
+    }
+
     void Node::hide() {
         hidden = true;
         shown = false;

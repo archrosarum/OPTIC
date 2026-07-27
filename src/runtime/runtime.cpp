@@ -45,6 +45,8 @@ namespace OPTIC {
 
         for (int i = 0; i < children.size(); i++) {
             OPTIC::Window* this_window = children.at(i).second;
+
+            this_window->tick();
         }
     }
 }

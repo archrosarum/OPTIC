@@ -24,6 +24,16 @@ namespace OPTIC {
     }
 
 
+    // Tick
+    void Window::tick() {
+        for (int i = 0; i < children.size(); i++) {
+            OPTIC::Node* this_node = children.at(i).second;
+
+            this_node->tick();
+        }
+    }
+
+
     // Window hide and unhide
 
     OPTIC::Window* Window::hide() {
@@ -42,6 +52,7 @@ namespace OPTIC {
     // Window children functions
 
     OPTIC::Window* Window::add_child(OPTIC::Node* new_node) {
+        new_node->set_parent(this);
         children.push_back(std::pair<std::string, OPTIC::Node*>(new_node->identifier, new_node));
 
         return this;

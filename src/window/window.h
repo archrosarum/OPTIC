@@ -11,7 +11,7 @@ namespace OPTIC {
         Window(std::string identifier);
         ~Window();
 
-        std::string         identifier;
+        void                tick();
 
         OPTIC::Window*      hide();
         OPTIC::Window*      show();
@@ -28,6 +28,8 @@ namespace OPTIC {
 
         OPTIC::Window*      set_scale(double new_scale);
         double              get_scale();
+
+        std::string         identifier;
 
     private:
         bool                finished;

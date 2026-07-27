@@ -12,6 +12,9 @@ namespace OPTIC {
 
     }
 
+    void Rectangle::tick() {
+
+    }
 
     OPTIC::Rectangle*   Rectangle::set_position(double x, double y) {
         this->position = {x, y};

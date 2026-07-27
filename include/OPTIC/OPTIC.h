@@ -11,9 +11,9 @@
 
 // Node
 #include "../src/nodes/node.h"
-#define NEW_NODE(...) (new OPTIC::Node(__VA_ARGS__) )
+#define NEW_NODE(...) (new OPTIC::Node( __VA_ARGS__))
 
 // Rectangle (Node)
 #include "../src/nodes/rectangle/rectangle.h"
-#define NEW_RECTANGLE(...) (new OPTIC::Rectangle(__VA_ARGS__) )
+#define NEW_RECTANGLE(...) (new OPTIC::Rectangle(__VA_ARGS__))
 
