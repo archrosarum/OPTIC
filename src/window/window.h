@@ -1,6 +1,10 @@
 #pragma once
 
+
 #include "../shared.h"
+
+#include "../elements/element.h"
+
 
 namespace OPTIC {
 
@@ -10,6 +14,7 @@ namespace OPTIC {
         ~Window();
 
         void Build();
+        OPTIC::Window* Add(OPTIC::Element* new_element);
         
         OPTIC::Window* ModifyTitle(std::string new_title);
         std::string title;
@@ -18,8 +23,11 @@ namespace OPTIC {
         int width;
         int height;
 
+        std::vector<std::pair<std::string, OPTIC::Element*>> children;
+
         SDL_Window* sdl_window;
         SDL_Renderer* sdl_renderer;
+
     private:
         bool finished = false;
     };

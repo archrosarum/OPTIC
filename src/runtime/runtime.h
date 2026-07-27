@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../root/root.h"
 
 namespace OPTIC {

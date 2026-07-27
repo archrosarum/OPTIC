@@ -13,6 +13,7 @@ add_library(${LIBRARY_NAME}
     src/runtime/runtime.cpp
     src/root/root.cpp
     src/window/window.cpp
+    src/elements/element.cpp
 )
 
 find_package(SDL3 REQUIRED)
