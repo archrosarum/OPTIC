@@ -13,21 +13,21 @@ namespace OPTIC {
 
         std::string         identifier;
 
-        OPTIC::Window*      Hide();
-        OPTIC::Window*      Show();
+        OPTIC::Window*      hide();
+        OPTIC::Window*      show();
         
-        OPTIC::Window*      AddChild(OPTIC::Node* new_node);
-        OPTIC::Node*        GetChild(std::string identifier);
+        OPTIC::Window*      add_child(OPTIC::Node* new_node);
+        OPTIC::Node*        get_child(std::string identifier);
 
-        OPTIC::Window*      SetTitle(std::string new_title);
-        std::string         GetTitle();
+        OPTIC::Window*      set_title(std::string new_title);
+        std::string         get_title();
 
-        OPTIC::Window*      SetSize(int new_width, int new_height);
-        int                 GetWidth();
-        int                 GetHeight();
+        OPTIC::Window*      set_size(int new_width, int new_height);
+        int                 get_width();
+        int                 get_height();
 
-        OPTIC::Window*      SetScale(double new_scale);
-        double              GetScale();
+        OPTIC::Window*      set_scale(double new_scale);
+        double              get_scale();
 
     private:
         bool                finished;

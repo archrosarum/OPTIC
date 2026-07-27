@@ -26,13 +26,13 @@ namespace OPTIC {
 
     // Window hide and unhide
 
-    OPTIC::Window* Window::Hide() {
+    OPTIC::Window* Window::hide() {
         SDL_HideWindow(this->sdl_window);
 
         return this;
     } 
 
-    OPTIC::Window* Window::Show() {
+    OPTIC::Window* Window::show() {
         SDL_ShowWindow(this->sdl_window);
 
         return this;
@@ -41,13 +41,13 @@ namespace OPTIC {
 
     // Window children functions
 
-    OPTIC::Window* Window::AddChild(OPTIC::Node* new_node) {
+    OPTIC::Window* Window::add_child(OPTIC::Node* new_node) {
         children.push_back(std::pair<std::string, OPTIC::Node*>(new_node->identifier, new_node));
 
         return this;
     }
 
-    OPTIC::Node* Window::GetChild(std::string identifier) {
+    OPTIC::Node* Window::get_child(std::string identifier) {
         for (int i = 0; i < children.size(); i++) {
             if (children.at(i).first == identifier) {
                 return children.at(i).second;
@@ -60,7 +60,7 @@ namespace OPTIC {
 
     // Window title functions
 
-    OPTIC::Window* Window::SetTitle(std::string new_title) {
+    OPTIC::Window* Window::set_title(std::string new_title) {
         title = new_title;
 
         if (finished) {
@@ -70,14 +70,14 @@ namespace OPTIC {
         return this;
     }
 
-    std::string Window::GetTitle() {
+    std::string Window::get_title() {
         return this->title;
     }
 
 
     // Window size functions
 
-    OPTIC::Window* Window::SetSize(int new_width, int new_height) {
+    OPTIC::Window* Window::set_size(int new_width, int new_height) {
         width = new_width;
         height = new_height;
 
@@ -88,18 +88,18 @@ namespace OPTIC {
         return this;
     }
 
-    int Window::GetWidth() {
+    int Window::get_height() {
         return this->width;
     }
 
-    int Window::GetHeight() {
+    int Window::get_width() {
         return this->height;
     }
 
 
     // Window scale functions
 
-    OPTIC::Window* Window::SetScale(double new_scale) {
+    OPTIC::Window* Window::set_scale(double new_scale) {
         scale = new_scale;
 
         SDL_SetWindowSize(sdl_window, width * scale, height * scale);

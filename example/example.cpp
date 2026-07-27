@@ -3,10 +3,13 @@
 int main() {
     OPTIC::Runtime main;
 
-    main.AddChild((new OPTIC::Window("main"))
-        ->SetTitle("Main window")
-        ->SetSize(800, 600)
-        ->SetScale(1.5)
+    main.add_child(NEW_WINDOW("window")
+        ->set_title("Window")
+        ->set_size(800, 600)
+        ->set_scale(1.5)
+        ->add_child(NEW_NODE("node")
+        
+        )
     );
 
     while (main.isRunning()) {

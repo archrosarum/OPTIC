@@ -18,13 +18,13 @@ namespace OPTIC {
     }
 
 
-    OPTIC::Runtime* Runtime::AddChild(OPTIC::Window* new_window) {
+    OPTIC::Runtime* Runtime::add_child(OPTIC::Window* new_window) {
         children.push_back(std::pair<std::string, OPTIC::Window*>(new_window->identifier, new_window));
 
         return this;
     }
 
-    OPTIC::Window* Runtime::GetChild(std::string identifier) {
+    OPTIC::Window* Runtime::get_child(std::string identifier) {
         for (int i = 0; i < children.size(); i++) {
             if (children.at(i).first == identifier) {
                 return children.at(i).second;

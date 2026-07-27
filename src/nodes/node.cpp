@@ -2,8 +2,8 @@
 #include "node.h"
 
 namespace OPTIC {
-    Node::Node() {
-
+    Node::Node(std::string identifier) {
+        this->identifier = identifier;
     }
 
     Node::~Node() {

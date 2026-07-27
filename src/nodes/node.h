@@ -5,7 +5,7 @@
 namespace OPTIC {
     class Node {
     public:
-        Node();
+        Node(std::string identifier);
         ~Node();
 
         std::string identifier;

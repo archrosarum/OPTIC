@@ -12,8 +12,8 @@ namespace OPTIC {
         void                tick();
         bool                isRunning();
 
-        OPTIC::Runtime*     AddChild(OPTIC::Window* new_window);
-        OPTIC::Window*      GetChild(std::string identifier);
+        OPTIC::Runtime*     add_child(OPTIC::Window* new_window);
+        OPTIC::Window*      get_child(std::string identifier);
 
     private:
         std::vector<std::pair<std::string, OPTIC::Window*>> children;
