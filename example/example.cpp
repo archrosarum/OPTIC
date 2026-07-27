@@ -7,7 +7,6 @@ int main() {
         ->SetTitle("Main window")
         ->SetSize(800, 600)
         ->SetScale(1.5)
-        ->AddChild(OPTIC::Create::Element("element"))
     );
 
     while (main.isRunning()) {

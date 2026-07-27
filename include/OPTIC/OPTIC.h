@@ -7,5 +7,5 @@
 // Window
 #include "../src/window/window.h"
 
-// Generic Element
-#include "../src/elements/element.h"
+// Node
+#include "../src/nodes/node.h"

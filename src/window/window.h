@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../shared.h"
-#include "../elements/element.h"
+#include "../nodes/node.h"
 
 
 namespace OPTIC {
@@ -16,8 +16,8 @@ namespace OPTIC {
         OPTIC::Window*      Hide();
         OPTIC::Window*      Show();
         
-        OPTIC::Window*      AddChild(OPTIC::Element* new_element);
-        OPTIC::Element*     GetChild(std::string identifier);
+        OPTIC::Window*      AddChild(OPTIC::Node* new_node);
+        OPTIC::Node*        GetChild(std::string identifier);
 
         OPTIC::Window*      SetTitle(std::string new_title);
         std::string         GetTitle();
@@ -32,7 +32,7 @@ namespace OPTIC {
     private:
         bool                finished;
 
-        std::vector<std::pair<std::string, OPTIC::Element*>> children;
+        std::vector<std::pair<std::string, OPTIC::Node*>> children;
 
         std::string         title;
         int                 width;

@@ -1,7 +1,7 @@
 #include "../shared.h"
 #include "window.h"
 #include "../runtime/runtime.h"
-#include "../elements/element.h"
+#include "../nodes/node.h"
 
 namespace OPTIC {
     Window::Window(std::string identifier) {
@@ -41,13 +41,13 @@ namespace OPTIC {
 
     // Window children functions
 
-    OPTIC::Window* Window::AddChild(OPTIC::Element* new_element) {
-        children.push_back(std::pair<std::string, OPTIC::Element*>(new_element->identifier, new_element));
+    OPTIC::Window* Window::AddChild(OPTIC::Node* new_node) {
+        children.push_back(std::pair<std::string, OPTIC::Node*>(new_node->identifier, new_node));
 
         return this;
     }
 
-    OPTIC::Element* Window::GetChild(std::string identifier) {
+    OPTIC::Node* Window::GetChild(std::string identifier) {
         for (int i = 0; i < children.size(); i++) {
             if (children.at(i).first == identifier) {
                 return children.at(i).second;
