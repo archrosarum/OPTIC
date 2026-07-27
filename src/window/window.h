@@ -5,10 +5,13 @@
 
 
 namespace OPTIC {
+
     class Window {
     public:
-        Window();
+        Window(std::string identifier);
         ~Window();
+
+        std::string         identifier;
 
         OPTIC::Window*      Hide();
         OPTIC::Window*      Show();
@@ -27,7 +30,6 @@ namespace OPTIC {
         double              GetScale();
 
     private:
-        std::string         identifier;
         bool                finished;
 
         std::vector<std::pair<std::string, OPTIC::Element*>> children;
@@ -40,14 +42,4 @@ namespace OPTIC {
         SDL_Window*         sdl_window;
         SDL_Renderer*       sdl_renderer;
     };
-}
-
-
-namespace OPTIC::Create {
-    OPTIC::Window* Window(std::string identifier);
-}
-
-
-namespace OPTIC::Get {
-    OPTIC::Window* Window(std::string identifier);
 }

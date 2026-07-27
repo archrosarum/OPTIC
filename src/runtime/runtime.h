@@ -1,14 +1,23 @@
 #pragma once
 
 #include "../root/root.h"
+#include "../window/window.h"
 
 namespace OPTIC {
+    class Runtime {
+    public:
+        Runtime();
+        ~Runtime();
 
-    inline bool running;
-    inline Root* root;
+        void                tick();
+        bool                isRunning();
 
-    void Init();
-    bool QuitOpportunity(bool condition);
-    void Tick();
-    void Quit();
+        OPTIC::Runtime*     AddChild(OPTIC::Window* new_window);
+        OPTIC::Window*      GetChild(std::string identifier);
+
+    private:
+        std::vector<std::pair<std::string, OPTIC::Window*>> children;
+
+        bool running;
+    };
 }

@@ -1,17 +1,16 @@
 #include "OPTIC/OPTIC.h"
 
 int main() {
-    OPTIC::Init();                                  // Cues OPTIC to set up the needed things for creating UI elements.
+    OPTIC::Runtime main;
 
-    OPTIC::Create::Window("main")                   // Creates a window and give it an identifier.
-        ->SetTitle("Invisible name")                 // Gives the window a visible title.
+    main.AddChild((new OPTIC::Window("main"))
+        ->SetTitle("Main window")
         ->SetSize(800, 600)
-        ->SetScale(1.5);                    
+        ->SetScale(1.5)
+        ->AddChild(OPTIC::Create::Element("element"))
+    );
 
-    OPTIC::Get::Window("main")                      // Once again gets the window.
-        ->AddChild(OPTIC::Create::Element("element"));       // Creates an element and adds it to the gotten window.
-
-    while (OPTIC::running) {                        // Establishes a loop dependent on the built in boolean.
-        OPTIC::Tick();                                  // Provides an update to all created elements.
+    while (main.isRunning()) {
+        main.tick();
     }
 }
