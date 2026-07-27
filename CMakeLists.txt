@@ -25,6 +25,8 @@ target_include_directories(${LIBRARY_NAME}
 )
 
 
+# EXAMPLE PROGRAM
+
 set(EXAMPLE_NAME "example")
 
 add_executable(${EXAMPLE_NAME}

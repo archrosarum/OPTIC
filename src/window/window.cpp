@@ -4,13 +4,12 @@
 #include "../elements/element.h"
 
 namespace OPTIC {
-
     Window::Window() {
-
+        finished = false;
     }
 
     Window::~Window() {
-        
+
     }
 
     void Window::Build() {
@@ -26,13 +25,29 @@ namespace OPTIC {
         );
     }
 
-    OPTIC::Window* Window::Add(OPTIC::Element* new_element) {
+
+    // Window children functions
+    
+    OPTIC::Window* Window::AddChild(OPTIC::Element* new_element) {
         children.push_back(std::pair<std::string, OPTIC::Element*>(new_element->identifier, new_element));
 
         return this;
     }
 
-    OPTIC::Window* Window::ModifyTitle(std::string new_title) {
+    OPTIC::Element* Window::GetChild(std::string identifier) {
+        for (int i = 0; i < children.size(); i++) {
+            if (children.at(i).first == identifier) {
+                return children.at(i).second;
+            }
+        }
+
+        return NULL;
+    }
+
+
+    // Window title functions
+
+    OPTIC::Window* Window::SetTitle(std::string new_title) {
         title = new_title;
 
         if (finished) {
@@ -42,7 +57,14 @@ namespace OPTIC {
         return this;
     }
 
-    OPTIC::Window* Window::ModifySize(int new_width, int new_height) {
+    std::string Window::GetTitle() {
+        return this->title;
+    }
+
+
+    // Window size functions
+
+    OPTIC::Window* Window::SetSize(int new_width, int new_height) {
         width = new_width;
         height = new_height;
 
@@ -51,6 +73,14 @@ namespace OPTIC {
         }
 
         return this;
+    }
+
+    int Window::GetWidth() {
+        return this->width;
+    }
+
+    int Window::GetHeight() {
+        return this->height;
     }
 }
 
