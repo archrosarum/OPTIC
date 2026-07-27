@@ -5,14 +5,6 @@
 
 namespace OPTIC {
     Window::Window() {
-        finished = false;
-    }
-
-    Window::~Window() {
-
-    }
-
-    void Window::Build() {
         finished = true;
 
         SDL_CreateWindowAndRenderer(
@@ -25,9 +17,28 @@ namespace OPTIC {
         );
     }
 
+    Window::~Window() {
+
+    }
+
+
+    // Window hide and unhide
+
+    OPTIC::Window* Window::Hide() {
+        SDL_HideWindow(this->sdl_window);
+
+        return this;
+    } 
+
+    OPTIC::Window* Window::Show() {
+        SDL_ShowWindow(this->sdl_window);
+
+        return this;
+    } 
+
 
     // Window children functions
-    
+
     OPTIC::Window* Window::AddChild(OPTIC::Element* new_element) {
         children.push_back(std::pair<std::string, OPTIC::Element*>(new_element->identifier, new_element));
 

@@ -5,11 +5,7 @@ int main() {
 
     OPTIC::Create::Window("main")                   // Creates a window and give it an identifier.
         ->SetTitle("Invisible name")                 // Gives the window a visible title.
-        ->SetSize(800, 600)                          // Gives the window a size.
-        ->Build();                                      // Engages SDL3 to generate a window based on the created object.
-        
-    OPTIC::Get::Window("main")                      // Gets the created window after creating it.
-        ->SetTitle("Main");                          // Modifies it's title, and automatically adjusts SDL3 window.
+        ->SetSize(800, 600);                          // Gives the window a size.
 
     OPTIC::Get::Window("main")                      // Once again gets the window.
         ->AddChild(OPTIC::Create::Element("element"));       // Creates an element and adds it to the gotten window.

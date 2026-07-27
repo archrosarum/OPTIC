@@ -10,7 +10,8 @@ namespace OPTIC {
         Window();
         ~Window();
 
-        void Build();
+        OPTIC::Window*      Hide();
+        OPTIC::Window*      Show();
         
         OPTIC::Window*      AddChild(OPTIC::Element* new_element);
         OPTIC::Element*     GetChild(std::string identifier);
@@ -39,7 +40,6 @@ namespace OPTIC {
 
 
 namespace OPTIC::Create {
-
     OPTIC::Window* Window(std::string identifier);
 }
 
