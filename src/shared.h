@@ -5,3 +5,13 @@
 #include <vector>
 #include <utility>
 #include <string>
+
+
+// Custom coordinate struct
+
+namespace OPTIC {
+    struct Coord {
+        double x;
+        double y;
+    };
+}

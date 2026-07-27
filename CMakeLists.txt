@@ -11,8 +11,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(${LIBRARY_NAME}
     src/runtime/runtime.cpp
+
     src/window/window.cpp
+
     src/nodes/node.cpp
+        src/nodes/rectangle/rectangle.cpp
 )
 
 find_package(SDL3 REQUIRED)

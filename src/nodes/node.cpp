@@ -9,4 +9,14 @@ namespace OPTIC {
     Node::~Node() {
 
     }
+
+    void Node::hide() {
+        hidden = true;
+        shown = false;
+    }
+
+    void Node::show() {
+        hidden = false;
+        shown = true;
+    }
 }

@@ -88,12 +88,16 @@ namespace OPTIC {
         return this;
     }
 
-    int Window::get_height() {
+    int Window::get_width() {
         return this->width;
     }
 
-    int Window::get_width() {
+    int Window::get_height() {
         return this->height;
+    }
+
+    double Window::get_scale() {
+        return this->scale;
     }
 
 

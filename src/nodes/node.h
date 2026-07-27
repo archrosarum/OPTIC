@@ -8,9 +8,13 @@ namespace OPTIC {
         Node(std::string identifier);
         ~Node();
 
-        std::string identifier;
+        void                hide();
+        void                show();
+
+        std::string         identifier;
         
     private:
-
+        bool                hidden;
+        bool                shown;
     };
 }
