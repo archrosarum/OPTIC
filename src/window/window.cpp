@@ -26,11 +26,16 @@ namespace OPTIC {
 
     // Tick
     void Window::tick() {
+        SDL_SetRenderDrawColor(sdl_renderer, 0, 0, 0, 255);
+        SDL_RenderClear(sdl_renderer);
+
         for (int i = 0; i < children.size(); i++) {
             OPTIC::Node* this_node = children.at(i).second;
 
             this_node->tick();
         }
+
+        SDL_RenderPresent(sdl_renderer);
     }
 
 
@@ -120,5 +125,16 @@ namespace OPTIC {
         SDL_SetWindowSize(sdl_window, width * scale, height * scale);
 
         return this;
+    }
+
+    
+    // Window internal pointer functions
+
+    SDL_Window* Window::get_internal_window() { 
+        return this->sdl_window;
+    }
+
+    SDL_Renderer* Window::get_internal_renderer() {
+        return this->sdl_renderer;
     }
 }

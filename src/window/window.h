@@ -29,6 +29,9 @@ namespace OPTIC {
         OPTIC::Window*      set_scale(double new_scale);
         double              get_scale();
 
+        SDL_Window*         get_internal_window();
+        SDL_Renderer*       get_internal_renderer();
+
         std::string         identifier;
 
     private:
