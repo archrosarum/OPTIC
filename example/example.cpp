@@ -5,7 +5,8 @@ int main() {
 
     OPTIC::Create::Window("main")                   // Creates a window and give it an identifier.
         ->SetTitle("Invisible name")                 // Gives the window a visible title.
-        ->SetSize(800, 600);                          // Gives the window a size.
+        ->SetSize(800, 600)
+        ->SetScale(1.5);                    
 
     OPTIC::Get::Window("main")                      // Once again gets the window.
         ->AddChild(OPTIC::Create::Element("element"));       // Creates an element and adds it to the gotten window.

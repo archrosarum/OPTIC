@@ -7,6 +7,8 @@ namespace OPTIC {
     Window::Window() {
         finished = true;
 
+        scale = 1;
+
         SDL_CreateWindowAndRenderer(
             this->title.c_str(),
             this->width,
@@ -92,6 +94,17 @@ namespace OPTIC {
 
     int Window::GetHeight() {
         return this->height;
+    }
+
+
+    // Window scale functions
+
+    OPTIC::Window* Window::SetScale(double new_scale) {
+        scale = new_scale;
+
+        SDL_SetWindowSize(sdl_window, width * scale, height * scale);
+
+        return this;
     }
 }
 

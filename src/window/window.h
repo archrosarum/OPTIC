@@ -23,6 +23,9 @@ namespace OPTIC {
         int                 GetWidth();
         int                 GetHeight();
 
+        OPTIC::Window*      SetScale(double new_scale);
+        double              GetScale();
+
     private:
         std::string         identifier;
         bool                finished;
@@ -32,6 +35,7 @@ namespace OPTIC {
         std::string         title;
         int                 width;
         int                 height;
+        double              scale;
         
         SDL_Window*         sdl_window;
         SDL_Renderer*       sdl_renderer;
