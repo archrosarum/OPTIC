@@ -7,6 +7,7 @@ namespace OPTIC {
 
     Text::Text(std::string identifier) : Node(identifier) {
         color = {0, 0, 0};
+        font_size = 11;
         text = "Text";
     }
 
@@ -63,7 +64,7 @@ namespace OPTIC {
     }
 
     void Text::load_font() {
-        this->font = TTF_OpenFont(font_path.c_str(), (float)((float)16 * get_parent()->get_scale() * get_parent()->get_pixel_density()));
+        this->font = TTF_OpenFont(font_path.c_str(), (float)(font_size * get_parent()->get_scale() * get_parent()->get_pixel_density()));
 
         if (!font) {
             SDL_Log("Failed to load font: %s", SDL_GetError());
@@ -83,8 +84,8 @@ namespace OPTIC {
         return this;
     }
 
-    OPTIC::Text*   Text::set_size(float width, float height) {
-        this->size = {width, height};
+    OPTIC::Text*   Text::set_font_size(float new_font_size) {
+        this->font_size = new_font_size;
 
         return this;
     }

@@ -12,11 +12,18 @@ int main() {
         ->add_child(NEW_TEXT("hello")
             ->set_text("Hello, world!")
             ->set_font("example/fonts/times_new_roman.ttf")
+            ->set_font_size(24)
+            ->set_justify(OPTIC::Text::Justify::CENTER)
+        )
+        ->add_child(NEW_TEXT("author")
+            ->set_text("Andrew Salois")
+            ->set_font("example/fonts/times_new_roman.ttf")
             ->set_justify(OPTIC::Text::Justify::CENTER)
         )
     );
 
     main.get_child("window")->get_child("hello")->as<OPTIC::Text>()->set_position(main.get_child("window")->get_center());
+    main.get_child("window")->get_child("author")->as<OPTIC::Text>()->set_position({main.get_child("window")->get_center().x, (float)20});
 
     while (main.isRunning()) {
         main.tick();
