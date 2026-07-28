@@ -23,6 +23,7 @@ namespace OPTIC {
     void Text::cache() {
         TTF_TextEngine* internal_text_engine = this->get_parent()->get_internal_text_engine();
 
+        load_font();
         text_cache = TTF_CreateText(internal_text_engine, font, text.c_str(), 0);
         TTF_SetTextColor(text_cache, color.red, color.green, color.blue, 255);
     }
@@ -34,14 +35,22 @@ namespace OPTIC {
         return this;
     }
 
-    OPTIC::Text* Text::load_font(std::string font_path) {
-        this->font = TTF_OpenFont(font_path.c_str(), 16.0f);
-        
-        if (!font) {
-            SDL_Log("Failed to load font: %s", SDL_GetError());
+    OPTIC::Text* Text::set_font(std::string font_path) {
+        this->font_path = font_path;
+
+        if (get_parent() != nullptr) {
+            load_font();
         }
 
         return this;
+    }
+
+    void Text::load_font() {
+        this->font = TTF_OpenFont(font_path.c_str(), (float)((float)16 * get_parent()->get_scale() * get_parent()->get_pixel_density()));
+
+        if (!font) {
+            SDL_Log("Failed to load font: %s", SDL_GetError());
+        }
     }
 
 

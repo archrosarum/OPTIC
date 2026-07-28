@@ -15,10 +15,12 @@ namespace OPTIC {
             this->title.c_str(),
             this->width,
             this->height,
-            0,
+            SDL_WINDOW_HIGH_PIXEL_DENSITY,
             &(this->sdl_window),
             &(this->sdl_renderer)
         );
+
+        pixel_density = SDL_GetWindowPixelDensity(sdl_window);
     }
 
     Window::~Window() {
@@ -133,6 +135,10 @@ namespace OPTIC {
         SDL_SetWindowSize(sdl_window, width * scale, height * scale);
 
         return this;
+    }
+
+    float Window::get_pixel_density() {
+        return this->pixel_density;
     }
 
     

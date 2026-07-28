@@ -33,6 +33,8 @@ namespace OPTIC {
         SDL_Renderer*       get_internal_renderer();
         TTF_TextEngine*     get_internal_text_engine();
 
+        float               get_pixel_density();
+
         OPTIC::Window*      set_background(OPTIC::Color new_background);
         OPTIC::Color        get_background();
 
@@ -52,6 +54,8 @@ namespace OPTIC {
         int                 height;
         double              scale;
         OPTIC::Color        background;
+
+        float               pixel_density;
         
         SDL_Window*         sdl_window;
         SDL_Renderer*       sdl_renderer;

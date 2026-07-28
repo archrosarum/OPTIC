@@ -3,6 +3,7 @@
 
 namespace OPTIC {
     Node::Node(std::string identifier) {
+        this->parent = nullptr;
         this->identifier = identifier;
 
         SDL_Init(SDL_INIT_VIDEO);
