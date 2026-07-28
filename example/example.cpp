@@ -20,6 +20,12 @@ int main() {
             ->set_font("example/fonts/times_new_roman.ttf")
             ->set_justify(OPTIC::Text::Justify::CENTER)
         )
+        ->add_child(NEW_RECTANGLE("rect")
+            ->filled(false)
+            ->outlined(true)
+            ->set_size(108, 15)
+            ->set_position(185, 12.5)
+        )
     );
 
     main.get_child("window")->get_child("hello")->as<OPTIC::Text>()->set_position(main.get_child("window")->get_center());

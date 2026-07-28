@@ -14,11 +14,25 @@ namespace OPTIC {
 
         OPTIC::Rectangle*   set_position(float x, float y);
         OPTIC::Rectangle*   set_size(float width, float height);
-        OPTIC::Rectangle*   set_color(OPTIC::Color new_color);
+        OPTIC::Rectangle*   set_fill_color(OPTIC::Color new_color);
+        OPTIC::Rectangle*   set_outline_color(OPTIC::Color new_color);
+        OPTIC::Rectangle*   set_outline_thickness(float new_outline_thickness);
+
+        OPTIC::Rectangle*   filled(bool condition);
+        OPTIC::Rectangle*   outlined(bool condition);
+
+
 
     private:
+        bool                is_filled;
+        bool                is_outlined;
+
+        OPTIC::Color        fill_color;
+        OPTIC::Color        outline_color;
+
+        float               outline_thickness;
+
         Coord               position;
         Coord               size;
-        OPTIC::Color        color;
     };
 }

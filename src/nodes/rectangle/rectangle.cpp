@@ -6,7 +6,12 @@
 namespace OPTIC {
 
     Rectangle::Rectangle(std::string identifier) : Node(identifier) {
-        color = {128, 128, 128};
+        is_filled = true;
+        is_outlined = false;
+        outline_thickness = 1;
+
+        fill_color = {255, 0, 0};
+        outline_color = {0, 0, 0};
     }
 
     Rectangle::~Rectangle() {
@@ -16,16 +21,32 @@ namespace OPTIC {
     void Rectangle::tick() {
         SDL_Renderer* internal_renderer = this->get_parent()->get_internal_renderer();
 
-        SDL_SetRenderDrawColor(internal_renderer, color.red, color.green, color.blue, 255);
-
         SDL_FRect geometry;
-        geometry.x = (float) position.x * get_parent()->get_scale();
-        geometry.y = (float) position.y * get_parent()->get_scale();
-        geometry.w = (float) size.x * get_parent()->get_scale();
-        geometry.h = (float) size.y * get_parent()->get_scale();
+        geometry.x = (float) position.x * get_parent()->get_scale() * get_parent()->get_pixel_density();
+        geometry.y = (float) position.y * get_parent()->get_scale() * get_parent()->get_pixel_density();
+        geometry.w = (float) size.x * get_parent()->get_scale() * get_parent()->get_pixel_density();
+        geometry.h = (float) size.y * get_parent()->get_scale() * get_parent()->get_pixel_density();
 
-        // 3. Draw the rectangle
-        SDL_RenderFillRect(internal_renderer, &geometry);
+        if (is_filled) {
+            SDL_SetRenderDrawColor(internal_renderer, fill_color.red, fill_color.green, fill_color.blue, 255);
+            SDL_RenderFillRect(internal_renderer, &geometry);
+        }
+        
+        if (is_outlined) {
+            SDL_SetRenderDrawColor(internal_renderer, outline_color.red, outline_color.green, outline_color.blue, 255);
+            
+            SDL_FRect top = { geometry.x, geometry.y, geometry.w, outline_thickness};
+            SDL_RenderFillRect(internal_renderer, &top);
+
+            SDL_FRect bottom = { geometry.x, geometry.y + geometry.h - outline_thickness, geometry.w, outline_thickness };
+            SDL_RenderFillRect(internal_renderer, &bottom);
+
+            SDL_FRect left = { geometry.x, geometry.y, outline_thickness, geometry.h };
+            SDL_RenderFillRect(internal_renderer, &left);
+
+            SDL_FRect right = { geometry.x + geometry.w - outline_thickness, geometry.y, outline_thickness, geometry.h };
+            SDL_RenderFillRect(internal_renderer, &right);
+        }
     }
 
     OPTIC::Rectangle*   Rectangle::set_position(float x, float y) {
@@ -40,8 +61,33 @@ namespace OPTIC {
         return this;
     }
 
-    OPTIC::Rectangle* Rectangle::set_color(OPTIC::Color new_color) {
-        this->color = new_color;
+    OPTIC::Rectangle* Rectangle::set_fill_color(OPTIC::Color new_color) {
+        this->fill_color = new_color;
+
+        return this;
+    }
+
+    OPTIC::Rectangle* Rectangle::set_outline_color(OPTIC::Color new_color) {
+        this->outline_color = new_color;
+
+        return this;
+    }
+
+    OPTIC::Rectangle* Rectangle::set_outline_thickness(float new_outline_thickness) {
+
+
+        return this;
+    }
+
+
+    OPTIC::Rectangle* Rectangle::filled(bool condition) {
+        this->is_filled = condition;
+
+        return this;
+    }
+
+    OPTIC::Rectangle* Rectangle::outlined(bool condition) {
+        this->is_outlined = condition;
 
         return this;
     }
