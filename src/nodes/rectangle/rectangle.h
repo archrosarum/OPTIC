@@ -12,8 +12,8 @@ namespace OPTIC {
 
         void                tick() override;
 
-        OPTIC::Rectangle*   set_position(double x, double y);
-        OPTIC::Rectangle*   set_size(double width, double height);
+        OPTIC::Rectangle*   set_position(float x, float y);
+        OPTIC::Rectangle*   set_size(float width, float height);
         OPTIC::Rectangle*   set_color(OPTIC::Color new_color);
 
     private:

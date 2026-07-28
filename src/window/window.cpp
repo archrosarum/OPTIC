@@ -13,8 +13,8 @@ namespace OPTIC {
 
         SDL_CreateWindowAndRenderer(
             this->title.c_str(),
-            this->width,
-            this->height,
+            this->size.width,
+            this->size.height,
             SDL_WINDOW_HIGH_PIXEL_DENSITY,
             &(this->sdl_window),
             &(this->sdl_renderer)
@@ -89,9 +89,7 @@ namespace OPTIC {
     OPTIC::Window* Window::set_title(std::string new_title) {
         title = new_title;
 
-        if (finished) {
-            SDL_SetWindowTitle(this->sdl_window, new_title.c_str());
-        }
+        SDL_SetWindowTitle(this->sdl_window, new_title.c_str());
 
         return this;
     }
@@ -103,38 +101,38 @@ namespace OPTIC {
 
     // Window size functions
 
-    OPTIC::Window* Window::set_size(int new_width, int new_height) {
-        width = new_width;
-        height = new_height;
+    OPTIC::Window* Window::set_size(Window::Size new_size) {
+        size = new_size;
 
-        if (finished) {
-            SDL_SetWindowSize(this->sdl_window, new_width, new_height);
-        }
+        SDL_SetWindowSize(this->sdl_window, size.width * scale, size.height * scale);
+
+        center.x = size.width / 2;
+        center.y = size.height / 2;
 
         return this;
     }
 
-    int Window::get_width() {
-        return this->width;
+    Window::Size Window::get_size() {
+        return this->size;
     }
 
-    int Window::get_height() {
-        return this->height;
-    }
-
-    double Window::get_scale() {
-        return this->scale;
+    OPTIC::Coord Window::get_center() {
+        return this->center;
     }
 
 
     // Window scale functions
 
-    OPTIC::Window* Window::set_scale(double new_scale) {
+    OPTIC::Window* Window::set_scale(float new_scale) {
         scale = new_scale;
 
-        SDL_SetWindowSize(sdl_window, width * scale, height * scale);
+        set_size(size);
 
         return this;
+    }
+
+    float Window::get_scale() {
+        return this->scale;
     }
 
     float Window::get_pixel_density() {

@@ -17,7 +17,14 @@ namespace OPTIC {
     void Text::tick() {
         TTF_TextEngine* internal_text_engine = this->get_parent()->get_internal_text_engine();
 
-        TTF_DrawRendererText(text_cache, (float) position.x, (float) position.y);
+        int width, height;
+
+        TTF_GetStringSize(font, text.c_str(), 0, &width, &height);
+
+        float draw_x = (float) (position.x * get_parent()->get_scale() * get_parent()->get_pixel_density() - width / 2);
+        float draw_y = (float) (position.y * get_parent()->get_scale() * get_parent()->get_pixel_density() - height / 2);
+
+        TTF_DrawRendererText(text_cache, draw_x, draw_y);
     }
 
     void Text::cache() {
@@ -54,13 +61,13 @@ namespace OPTIC {
     }
 
 
-    OPTIC::Text*   Text::set_position(double x, double y) {
-        this->position = {x, y};
+    OPTIC::Text*   Text::set_position(OPTIC::Coord new_position) {
+        this->position = {new_position.x, new_position.y};
 
         return this;
     }
 
-    OPTIC::Text*   Text::set_size(double width, double height) {
+    OPTIC::Text*   Text::set_size(float width, float height) {
         this->size = {width, height};
 
         return this;

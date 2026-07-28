@@ -8,6 +8,11 @@ namespace OPTIC {
 
     class Window {
     public:
+        struct Size {
+            int width;
+            int height;
+        };
+
         Window(std::string identifier);
         ~Window();
 
@@ -22,12 +27,12 @@ namespace OPTIC {
         OPTIC::Window*      set_title(std::string new_title);
         std::string         get_title();
 
-        OPTIC::Window*      set_size(int new_width, int new_height);
-        int                 get_width();
-        int                 get_height();
+        OPTIC::Window*      set_size(Window::Size new_size);
+        Window::Size        get_size();  
+        OPTIC::Coord        get_center();                
 
-        OPTIC::Window*      set_scale(double new_scale);
-        double              get_scale();
+        OPTIC::Window*      set_scale(float new_scale);
+        float               get_scale();
 
         SDL_Window*         get_internal_window();
         SDL_Renderer*       get_internal_renderer();
@@ -50,13 +55,14 @@ namespace OPTIC {
         std::vector<std::pair<std::string, OPTIC::Node*>> children;
 
         std::string         title;
-        int                 width;
-        int                 height;
-        double              scale;
+        Window::Size        size;
+        float               scale;
+
+        OPTIC::Coord        center;
+
         OPTIC::Color        background;
 
         float               pixel_density;
-        
         SDL_Window*         sdl_window;
         SDL_Renderer*       sdl_renderer;
         TTF_TextEngine*     ttf_engine;

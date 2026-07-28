@@ -10,6 +10,11 @@ namespace OPTIC {
         Node(std::string identifier);
         virtual ~Node();
 
+        template <typename Derived>
+        Derived* as() {
+            return dynamic_cast<Derived*>(this);
+        }
+
         virtual void        tick();
 
         void                hide();

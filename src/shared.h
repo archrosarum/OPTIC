@@ -14,8 +14,8 @@
 
 namespace OPTIC {
     struct Coord {
-        double x;
-        double y;
+        float x;
+        float y;
     };
 
     struct Color {

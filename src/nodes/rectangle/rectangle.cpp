@@ -28,13 +28,13 @@ namespace OPTIC {
         SDL_RenderFillRect(internal_renderer, &geometry);
     }
 
-    OPTIC::Rectangle*   Rectangle::set_position(double x, double y) {
+    OPTIC::Rectangle*   Rectangle::set_position(float x, float y) {
         this->position = {x, y};
 
         return this;
     }
 
-    OPTIC::Rectangle*   Rectangle::set_size(double width, double height) {
+    OPTIC::Rectangle*   Rectangle::set_size(float width, float height) {
         this->size = {width, height};
 
         return this;
