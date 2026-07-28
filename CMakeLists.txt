@@ -15,6 +15,7 @@ add_library(${LIBRARY_NAME}
     src/window/window.cpp
 
     src/nodes/node.cpp
+        src/nodes/text/text.cpp
         src/nodes/rectangle/rectangle.cpp
 )
 

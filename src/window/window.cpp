@@ -2,10 +2,12 @@
 #include "window.h"
 #include "../runtime/runtime.h"
 #include "../nodes/node.h"
+#include "../nodes/text/text.h"
 
 namespace OPTIC {
     Window::Window(std::string identifier) {
         this->identifier = identifier;
+        has_text_support = false;
         finished = true;
         scale = 1;
 
@@ -60,6 +62,11 @@ namespace OPTIC {
     OPTIC::Window* Window::add_child(OPTIC::Node* new_node) {
         new_node->set_parent(this);
         children.push_back(std::pair<std::string, OPTIC::Node*>(new_node->identifier, new_node));
+
+        if (auto* node_cast = dynamic_cast<OPTIC::Text*>(new_node)) {
+            try_text_support();
+            node_cast->cache();
+        } 
 
         return this;
     }
@@ -139,6 +146,14 @@ namespace OPTIC {
         return this->sdl_renderer;
     }
 
+    TTF_TextEngine* Window::get_internal_text_engine() {
+        if (has_text_support) {
+            return this->ttf_engine;
+        } else {
+            return NULL;
+        }
+    }
+
 
     // Window background color functions
 
@@ -150,5 +165,16 @@ namespace OPTIC {
 
     OPTIC::Color Window::get_background() {
         return this->background;
+    }
+
+
+    // Window text functions
+
+    void Window::try_text_support() {
+        if (!has_text_support) {
+            ttf_engine = TTF_CreateRendererTextEngine(sdl_renderer);
+
+            has_text_support = true;
+        }
     }
 }

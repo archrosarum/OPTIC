@@ -31,6 +31,7 @@ namespace OPTIC {
 
         SDL_Window*         get_internal_window();
         SDL_Renderer*       get_internal_renderer();
+        TTF_TextEngine*     get_internal_text_engine();
 
         OPTIC::Window*      set_background(OPTIC::Color new_background);
         OPTIC::Color        get_background();
@@ -39,6 +40,9 @@ namespace OPTIC {
         std::string         identifier;
 
     private:
+        void                try_text_support();
+        bool                has_text_support;
+
         bool                finished;
 
         std::vector<std::pair<std::string, OPTIC::Node*>> children;
@@ -51,5 +55,6 @@ namespace OPTIC {
         
         SDL_Window*         sdl_window;
         SDL_Renderer*       sdl_renderer;
+        TTF_TextEngine*     ttf_engine;
     };
 }

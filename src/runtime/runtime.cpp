@@ -6,6 +6,7 @@ namespace OPTIC {
 
     Runtime::Runtime() {
         running = true;
+        TTF_Init();
     }
 
     Runtime::~Runtime() {
