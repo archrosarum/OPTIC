@@ -18,6 +18,8 @@ namespace OPTIC {
 
         void                tick();
 
+        void                bring_to_center();
+
         OPTIC::Window*      hide();
         OPTIC::Window*      show();
         

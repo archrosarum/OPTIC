@@ -7,6 +7,12 @@ namespace OPTIC {
 
     class Text : public OPTIC::Node {
     public:
+        enum class Justify{
+            LEFT,
+            RIGHT,
+            CENTER,
+        };
+
         Text(std::string identifier);
         ~Text() override;
 
@@ -17,6 +23,7 @@ namespace OPTIC {
 
         OPTIC::Text*        set_font(std::string font_path);
         OPTIC::Text*        set_text(std::string new_text);
+        OPTIC::Text*        set_justify(Text::Justify new_justify);
         OPTIC::Text*        set_position(OPTIC::Coord new_position);
         OPTIC::Text*        set_size(float width, float height);
         OPTIC::Text*        set_color(OPTIC::Color new_color);
@@ -28,6 +35,7 @@ namespace OPTIC {
 
         TTF_Font*           font;
         std::string         font_path;
+        Text::Justify       justify;
 
         Coord               position;
         Coord               size;

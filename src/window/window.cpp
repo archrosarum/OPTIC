@@ -15,7 +15,7 @@ namespace OPTIC {
             this->title.c_str(),
             this->size.width,
             this->size.height,
-            SDL_WINDOW_HIGH_PIXEL_DENSITY,
+            SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WINDOW_BORDERLESS,
             &(this->sdl_window),
             &(this->sdl_renderer)
         );
@@ -27,6 +27,9 @@ namespace OPTIC {
 
     }
 
+    void Window::bring_to_center() {
+        SDL_SetWindowPosition(sdl_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+    }
 
     // Tick
 

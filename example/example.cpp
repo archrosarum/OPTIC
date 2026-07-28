@@ -10,7 +10,9 @@ int main() {
         ->set_scale(1.5)
         ->set_background({255, 255, 255})
         ->add_child(NEW_TEXT("hello")
+            ->set_text("Hello, world!")
             ->set_font("example/fonts/times_new_roman.ttf")
+            ->set_justify(OPTIC::Text::Justify::CENTER)
         )
     );
 

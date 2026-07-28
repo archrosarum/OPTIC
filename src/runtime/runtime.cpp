@@ -21,6 +21,7 @@ namespace OPTIC {
 
     OPTIC::Runtime* Runtime::add_child(OPTIC::Window* new_window) {
         children.push_back(std::pair<std::string, OPTIC::Window*>(new_window->identifier, new_window));
+        new_window->bring_to_center();
 
         return this;
     }
