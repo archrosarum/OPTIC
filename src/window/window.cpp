@@ -25,8 +25,9 @@ namespace OPTIC {
 
 
     // Tick
+
     void Window::tick() {
-        SDL_SetRenderDrawColor(sdl_renderer, 0, 0, 0, 255);
+        SDL_SetRenderDrawColor(sdl_renderer, background.red, background.green, background.blue, 255);
         SDL_RenderClear(sdl_renderer);
 
         for (int i = 0; i < children.size(); i++) {
@@ -136,5 +137,18 @@ namespace OPTIC {
 
     SDL_Renderer* Window::get_internal_renderer() {
         return this->sdl_renderer;
+    }
+
+
+    // Window background color functions
+
+    OPTIC::Window* Window::set_background(OPTIC::Color new_background) {
+        this->background = new_background;
+
+        return this;
+    }
+
+    OPTIC::Color Window::get_background() {
+        return this->background;
     }
 }

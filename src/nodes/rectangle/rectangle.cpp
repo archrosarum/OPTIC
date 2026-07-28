@@ -6,7 +6,7 @@
 namespace OPTIC {
 
     Rectangle::Rectangle(std::string identifier) : Node(identifier) {
-
+        color = {128, 128, 128};
     }
 
     Rectangle::~Rectangle() {
@@ -16,7 +16,7 @@ namespace OPTIC {
     void Rectangle::tick() {
         SDL_Renderer* internal_renderer = this->get_parent()->get_internal_renderer();
 
-        SDL_SetRenderDrawColor(internal_renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(internal_renderer, color.red, color.green, color.blue, 255);
 
         SDL_FRect geometry;
         geometry.x = (float) position.x;
@@ -36,6 +36,12 @@ namespace OPTIC {
 
     OPTIC::Rectangle*   Rectangle::set_size(double width, double height) {
         this->size = {width, height};
+
+        return this;
+    }
+
+    OPTIC::Rectangle* Rectangle::set_color(OPTIC::Color new_color) {
+        this->color = new_color;
 
         return this;
     }

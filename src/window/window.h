@@ -32,6 +32,10 @@ namespace OPTIC {
         SDL_Window*         get_internal_window();
         SDL_Renderer*       get_internal_renderer();
 
+        OPTIC::Window*      set_background(OPTIC::Color new_background);
+        OPTIC::Color        get_background();
+
+
         std::string         identifier;
 
     private:
@@ -43,6 +47,7 @@ namespace OPTIC {
         int                 width;
         int                 height;
         double              scale;
+        OPTIC::Color        background;
         
         SDL_Window*         sdl_window;
         SDL_Renderer*       sdl_renderer;

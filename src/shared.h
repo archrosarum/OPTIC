@@ -14,4 +14,10 @@ namespace OPTIC {
         double x;
         double y;
     };
+
+    struct Color {
+        int red;
+        int green;
+        int blue;
+    };
 }
