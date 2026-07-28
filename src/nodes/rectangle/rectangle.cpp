@@ -19,10 +19,10 @@ namespace OPTIC {
         SDL_SetRenderDrawColor(internal_renderer, color.red, color.green, color.blue, 255);
 
         SDL_FRect geometry;
-        geometry.x = (float) position.x;
-        geometry.y = (float) position.y;
-        geometry.w = (float) size.x;
-        geometry.h = (float) size.y;
+        geometry.x = (float) position.x * get_parent()->get_scale();
+        geometry.y = (float) position.y * get_parent()->get_scale();
+        geometry.w = (float) size.x * get_parent()->get_scale();
+        geometry.h = (float) size.y * get_parent()->get_scale();
 
         // 3. Draw the rectangle
         SDL_RenderFillRect(internal_renderer, &geometry);

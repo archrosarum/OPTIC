@@ -19,8 +19,10 @@ add_library(${LIBRARY_NAME}
 )
 
 find_package(SDL3 REQUIRED)
+find_package(SDL3_image REQUIRED)
+find_package(SDL3_ttf REQUIRED)
 
-target_link_libraries(${LIBRARY_NAME} PUBLIC SDL3::SDL3)
+target_link_libraries(${LIBRARY_NAME} PUBLIC SDL3::SDL3 SDL3_image::SDL3_image SDL3_ttf::SDL3_ttf)
 
 target_include_directories(${LIBRARY_NAME}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
