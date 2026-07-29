@@ -13,11 +13,11 @@ namespace OPTIC {
         }
     }
 
-    Window::Window(std::string identifier) {
-        this->identifier = identifier;
-        has_text_support = false;
-        finished = true;
+    Window::Window() {
+        set_size({480, 360});
+        background = {255, 255, 255};
         scale = 1;
+        has_text_support = false;
 
         SDL_CreateWindowAndRenderer(
             this->title.c_str(),
@@ -28,14 +28,28 @@ namespace OPTIC {
             &(this->sdl_renderer)
         );
 
+        handle_display_change();
+
         SDL_SetWindowHitTest(this->sdl_window, borderless_callback, NULL);
         SDL_SetRenderVSync(this->sdl_renderer, 1);
-
-        pixel_density = SDL_GetWindowPixelDensity(sdl_window);
     }
 
     Window::~Window() {
 
+    }
+
+    void Window::handle_display_change() {
+        int true_window_width, true_window_height;
+        SDL_GetWindowSizeInPixels(sdl_window, &true_window_width, &true_window_height);
+
+        SDL_SetRenderLogicalPresentation(sdl_renderer, true_window_width, true_window_height, SDL_LOGICAL_PRESENTATION_STRETCH);
+
+        pixel_density = SDL_GetWindowPixelDensity(sdl_window);
+        display_scale = SDL_GetWindowDisplayScale(sdl_window);
+
+        for (int i = 0; i < children.size(); i++) {
+            children.at(i)->handle_display_change();
+        }
     }
 
     void Window::bring_to_center() {
@@ -51,7 +65,7 @@ namespace OPTIC {
         SDL_RenderClear(sdl_renderer);
 
         for (int i = 0; i < children.size(); i++) {
-            OPTIC::Node* this_node = children.at(i).second;
+            OPTIC::Node* this_node = children.at(i);
 
             this_node->tick();
         }
@@ -79,7 +93,7 @@ namespace OPTIC {
 
     OPTIC::Window* Window::add_child(OPTIC::Node* new_node) {
         new_node->set_parent(this);
-        children.push_back(std::pair<std::string, OPTIC::Node*>(new_node->identifier, new_node));
+        children.push_back(new_node);
 
         if (auto* node_cast = dynamic_cast<OPTIC::Text*>(new_node)) {
             try_text_support();
@@ -89,16 +103,10 @@ namespace OPTIC {
         return this;
     }
 
-    OPTIC::Node* Window::get_child(std::string identifier) {
-        for (int i = 0; i < children.size(); i++) {
-            if (children.at(i).first == identifier) {
-                return children.at(i).second;
-            }
-        }
-
-        return NULL;
+    OPTIC::Window* Window::bind_event(Window::EventPointer event_ptr, void (*new_event)()) {
+        this->*event_ptr = new_event;
+        return this;
     }
-
 
     // Window title functions
 
@@ -155,6 +163,16 @@ namespace OPTIC {
         return this->pixel_density;
     }
 
+    OPTIC::Window* Window::set_display_scale(float new_scale) {
+        this->display_scale = new_scale;
+
+        return this;
+    }
+
+    float Window::get_display_scale() {
+        return this->display_scale;
+    }
+
     
     // Window internal pointer functions
 
@@ -201,15 +219,24 @@ namespace OPTIC {
 
     // Window event bindings
 
-    OPTIC::Window* Window::bind_to_event_init(void (*new_event_init)()) {
-        event_init = new_event_init;
-
-        return this;
+    void Window::run_event(Window::EventPointer event_ptr) {
+        auto func = this->*event_ptr;
+        if (func != nullptr) {
+            func();
+        }
     }
 
-    void Window::run_event_init() {
-        if (event_init != nullptr) {
-            event_init();
-        }
+    OPTIC::Window Window::make_copy() const {
+        Window copy;
+        copy.set_title(this->title);
+        copy.set_size(this->size);
+        copy.set_scale(this->scale);
+        copy.set_background(this->background);
+
+        return copy;
+    }
+
+    float Window::get_multiplier() {
+        return scale * pixel_density;
     }
 }

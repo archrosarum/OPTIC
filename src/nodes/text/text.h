@@ -13,10 +13,11 @@ namespace OPTIC {
             CENTER,
         };
 
-        Text(std::string identifier);
+        Text();
         ~Text() override;
 
         void                tick() override;
+        void                handle_display_change() override;
 
         void                cache();
         void                load_font();

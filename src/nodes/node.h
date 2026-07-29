@@ -7,7 +7,7 @@ namespace OPTIC {
 
     class Node {
     public:
-        Node(std::string identifier);
+        Node();
         virtual ~Node();
 
         template <typename Derived>
@@ -15,6 +15,7 @@ namespace OPTIC {
             return dynamic_cast<Derived*>(this);
         }
 
+        virtual void        handle_display_change();
         virtual void        tick();
 
         void                hide();
@@ -22,8 +23,6 @@ namespace OPTIC {
 
         void                set_parent(OPTIC::Window*);
         OPTIC::Window*      get_parent();
-
-        std::string         identifier;
         
     private:
         bool                hidden;

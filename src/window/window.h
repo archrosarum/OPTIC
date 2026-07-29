@@ -8,23 +8,35 @@ namespace OPTIC {
 
     class Window {
     public:
+        using EventPointer = void (*Window::*)();
+
         struct Size {
             int width;
             int height;
         };
 
-        Window(std::string identifier);
+        Window();
         ~Window();
-
+        
         void                tick();
 
         void                bring_to_center();
 
+        void (*event_open)() = nullptr;
+        void (*event_close)() = nullptr;
+        void (*event_tick)() = nullptr;
+
+        OPTIC::Window*      add_child(OPTIC::Node* new_node);
+        OPTIC::Window*      bind_event(EventPointer event_ptr, void (*new_event)());
+        OPTIC::Window       make_copy() const;
+
+        void                handle_display_change();
+
+        void                run_event(Window::EventPointer event_ptr);
+
         OPTIC::Window*      hide();
         OPTIC::Window*      show();
         
-        OPTIC::Window*      add_child(OPTIC::Node* new_node);
-        OPTIC::Node*        get_child(std::string identifier);
 
         OPTIC::Window*      set_title(std::string new_title);
         std::string         get_title();
@@ -35,6 +47,11 @@ namespace OPTIC {
 
         OPTIC::Window*      set_scale(float new_scale);
         float               get_scale();
+
+        OPTIC::Window*      set_display_scale(float new_scale);
+        float               get_display_scale();
+
+        float               get_multiplier();
 
         SDL_Window*         get_internal_window();
         SDL_Renderer*       get_internal_renderer();
@@ -48,19 +65,16 @@ namespace OPTIC {
         OPTIC::Window*      bind_to_event_init(void (*new_event_init)());
         void                run_event_init();
 
-        std::string         identifier;
-
     private:
         void                try_text_support();
         bool                has_text_support;
 
-        bool                finished;
-
-        std::vector<std::pair<std::string, OPTIC::Node*>> children;
+        std::vector<OPTIC::Node*> children;
 
         std::string         title;
         Window::Size        size;
         float               scale;
+        float               display_scale;
 
         OPTIC::Coord        center;
 
@@ -70,7 +84,5 @@ namespace OPTIC {
         SDL_Window*         sdl_window;
         SDL_Renderer*       sdl_renderer;
         TTF_TextEngine*     ttf_engine;
-
-        void (*event_init)() = nullptr;
     };
 }

@@ -7,10 +7,11 @@ namespace OPTIC {
 
     class Rectangle : public OPTIC::Node {
     public:
-        Rectangle(std::string identifier);
+        Rectangle();
         ~Rectangle() override;
 
         void                tick() override;
+        void                handle_display_change() override;
 
         OPTIC::Rectangle*   set_position(float x, float y);
         OPTIC::Rectangle*   set_size(float width, float height);

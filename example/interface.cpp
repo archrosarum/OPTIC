@@ -7,33 +7,32 @@ void on_window_launch();
 
 // OPTIC Interface
 
+using namespace OPTIC;
+
 int main() {
-    OPTIC::Runtime main;
 
-    main.add_child(
-        NEW_WINDOW("window")
-        ->bind_to_event_init(on_window_launch)
-        ->set_title("Window")
-        ->set_size({480, 360})
-        ->set_scale(1.5)
-        ->set_background({255, 255, 255})
-        ->add_child(NEW_TEXT("hello")
-            ->set_text("Hello, world!")
-            ->set_font("example/fonts/times_new_roman.ttf")
-            ->set_font_size(20)
-            ->set_justify(OPTIC::Text::Justify::CENTER)
-        )
-        ->add_child(NEW_RECTANGLE("border")
-            ->outlined(true)
-            ->filled(false)
-            ->set_size(470, 350)
-            ->set_position(5, 5)
-        )
-    );
+    Runtime main;
 
-    main.get_child("window")->get_child("hello")->as<OPTIC::Text>()->set_position(main.get_child("window")->get_center());
+    Window welcome;
+        welcome.bind_event(EVENT(event_open), on_window_launch);
 
-    while (main.isRunning()) {
-        main.tick();
-    }
+    Text label;
+        label.set_position(welcome.get_center());
+        label.set_font_size(24);
+        label.set_justify(OPTIC::Text::Justify::CENTER);
+        label.set_text("Welcome!");
+    
+    Rectangle border;
+        border.set_position(5, 5);
+        border.filled(false);
+        border.outlined(true);
+        border.set_size(welcome.get_size().width - 10, welcome.get_size().height - 10);
+        border.set_outline_thickness(2);
+
+    welcome.add_child(&label);
+    welcome.add_child(&border);
+    main.add_child(&welcome);
+    
+
+    main.loop();
 }

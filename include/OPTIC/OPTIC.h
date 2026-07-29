@@ -1,5 +1,6 @@
 #pragma once
 
+#define EVENT(member) &Window::member
 
 // Runtime
 #include "../src/runtime/runtime.h"

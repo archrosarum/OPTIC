@@ -5,8 +5,10 @@
 
 namespace OPTIC {
 
-    Text::Text(std::string identifier) : Node(identifier) {
+    Text::Text() : Node() {
+        position = {0, 0};
         color = {0, 0, 0};
+        font_path = "src/fonts/times_new_roman.ttf";
         font_size = 11;
         text = "Text";
     }
@@ -22,8 +24,8 @@ namespace OPTIC {
 
         TTF_GetStringSize(font, text.c_str(), 0, &width, &height);
 
-        float draw_x = (float) (position.x * get_parent()->get_scale() * get_parent()->get_pixel_density());
-        float draw_y = (float) (position.y * get_parent()->get_scale() * get_parent()->get_pixel_density());
+        float draw_x = (float) (position.x * get_parent()->get_multiplier());
+        float draw_y = (float) (position.y * get_parent()->get_multiplier());
 
         if (justify == Text::Justify::CENTER) {
             draw_x -= width / 2;
@@ -36,6 +38,10 @@ namespace OPTIC {
         }
 
         TTF_DrawRendererText(text_cache, draw_x, draw_y);
+    }
+
+    void Text::handle_display_change() {
+        cache();
     }
 
     void Text::cache() {
@@ -64,7 +70,7 @@ namespace OPTIC {
     }
 
     void Text::load_font() {
-        this->font = TTF_OpenFont(font_path.c_str(), (float)(font_size * get_parent()->get_scale() * get_parent()->get_pixel_density()));
+        this->font = TTF_OpenFont(font_path.c_str(), (float)(font_size * get_parent()->get_multiplier()));
 
         if (!font) {
             SDL_Log("Failed to load font: %s", SDL_GetError());

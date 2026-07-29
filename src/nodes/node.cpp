@@ -2,9 +2,8 @@
 #include "node.h"
 
 namespace OPTIC {
-    Node::Node(std::string identifier) {
+    Node::Node() {
         this->parent = nullptr;
-        this->identifier = identifier;
 
         SDL_Init(SDL_INIT_VIDEO);
     }
@@ -22,6 +21,10 @@ namespace OPTIC {
     }
 
     void Node::tick() {
+        // to be overwritten
+    }
+
+    void Node::handle_display_change() {
         // to be overwritten
     }
 
