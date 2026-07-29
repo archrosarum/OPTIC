@@ -5,6 +5,14 @@
 #include "../nodes/text/text.h"
 
 namespace OPTIC {
+    SDL_HitTestResult SDLCALL borderless_callback(SDL_Window* window, const SDL_Point* point, void* data) {
+        if (point->y < 32) {
+            return SDL_HITTEST_DRAGGABLE;
+        } else {
+            return SDL_HITTEST_NORMAL;
+        }
+    }
+
     Window::Window(std::string identifier) {
         this->identifier = identifier;
         has_text_support = false;
@@ -20,6 +28,9 @@ namespace OPTIC {
             &(this->sdl_renderer)
         );
 
+        SDL_SetWindowHitTest(this->sdl_window, borderless_callback, NULL);
+        SDL_SetRenderVSync(this->sdl_renderer, 1);
+
         pixel_density = SDL_GetWindowPixelDensity(sdl_window);
     }
 
@@ -34,6 +45,8 @@ namespace OPTIC {
     // Tick
 
     void Window::tick() {
+
+
         SDL_SetRenderDrawColor(sdl_renderer, background.red, background.green, background.blue, 255);
         SDL_RenderClear(sdl_renderer);
 
@@ -182,6 +195,21 @@ namespace OPTIC {
             ttf_engine = TTF_CreateRendererTextEngine(sdl_renderer);
 
             has_text_support = true;
+        }
+    }
+
+
+    // Window event bindings
+
+    OPTIC::Window* Window::bind_to_event_init(void (*new_event_init)()) {
+        event_init = new_event_init;
+
+        return this;
+    }
+
+    void Window::run_event_init() {
+        if (event_init != nullptr) {
+            event_init();
         }
     }
 }

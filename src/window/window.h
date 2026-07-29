@@ -45,6 +45,8 @@ namespace OPTIC {
         OPTIC::Window*      set_background(OPTIC::Color new_background);
         OPTIC::Color        get_background();
 
+        OPTIC::Window*      bind_to_event_init(void (*new_event_init)());
+        void                run_event_init();
 
         std::string         identifier;
 
@@ -68,5 +70,7 @@ namespace OPTIC {
         SDL_Window*         sdl_window;
         SDL_Renderer*       sdl_renderer;
         TTF_TextEngine*     ttf_engine;
+
+        void (*event_init)() = nullptr;
     };
 }

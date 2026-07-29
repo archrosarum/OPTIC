@@ -35,7 +35,8 @@ target_include_directories(${LIBRARY_NAME}
 set(EXAMPLE_NAME "example")
 
 add_executable(${EXAMPLE_NAME}
-    example/example.cpp
+    example/interface.cpp
+    example/behavior.cpp
 )
 
 set_target_properties(${EXAMPLE_NAME} PROPERTIES
