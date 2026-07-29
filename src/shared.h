@@ -9,7 +9,4 @@
 #include <utility>
 #include <string>
 
-
-// Custom coordinate struct
-
 #include "datatypes.h"

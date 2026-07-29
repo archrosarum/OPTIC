@@ -68,6 +68,8 @@ namespace OPTIC {
         Pixel               pixel_position(Normalized ndc);
         Pixel               pixel_size(Normalized ndc);
 
+        Pixel               pixel_dimentions();
+
         float               aspect_ratio();           
 
     private:
@@ -88,6 +90,8 @@ namespace OPTIC {
         OPTIC::Coord        center;
 
         OPTIC::Color        background;
+
+        Pixel               pixel_dimentions_;
 
         float               pixel_density;
         SDL_Window*         sdl_window;

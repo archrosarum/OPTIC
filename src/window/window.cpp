@@ -14,6 +14,8 @@ namespace OPTIC {
     }
 
     Window::Window() {
+        SDL_Init(SDL_INIT_VIDEO);
+        
         set_size({480, 360});
         background = {255, 255, 255};
         scale = 1;
@@ -49,6 +51,8 @@ namespace OPTIC {
         for (int i = 0; i < children.size(); i++) {
             children.at(i)->handle_display_change();
         }
+
+        pixel_dimentions_ = {this->pixel_width, this->pixel_height};
     }
 
     void Window::bring_to_center() {
@@ -91,7 +95,7 @@ namespace OPTIC {
     // Window children functions
 
     OPTIC::Window* Window::add_child(OPTIC::Node* new_node) {
-        new_node->set_parent(this);
+        new_node->window(this);
         children.push_back(new_node);
 
         /*
@@ -147,6 +151,10 @@ namespace OPTIC {
 
     float Window::aspect_ratio() {
         return this->aspect_ratio_;
+    }
+
+    Pixel Window::pixel_dimentions() {
+        return this->pixel_dimentions_;
     }
 
 

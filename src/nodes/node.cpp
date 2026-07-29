@@ -2,33 +2,30 @@
 #include "node.h"
 
 namespace OPTIC {
+
     Node::Node() {
         this->position_ = {0.0f, 0.0f};
         this->anchor_ = {0.0f, 0.0f};
         this->size_ = {0.0f, 0.0f};
 
-        this->parent = nullptr;
-        this->shown = true;
+        this->visibility_ = SHOWN;
 
-        SDL_Init(SDL_INIT_VIDEO);
+        this->window_ = nullptr;
+        this->parent_ = nullptr;
     }
 
     Node::~Node() {
 
     }
 
-    void Node::set_parent(OPTIC::Window* new_parent) {
-        this->parent = new_parent;
-    }
-
-    OPTIC::Window* Node::get_parent() {
-        return this->parent;
-    }
-
     void Node::tick() {
         process();
-        if (shown) {
+        if (this->visibility_ == SHOWN) {
             render();
+        }
+
+        for (int i = 0; i < children_.size(); i++) {
+            children_.at(i)->tick();
         }
     }
 
@@ -54,6 +51,14 @@ namespace OPTIC {
         return this->position_;
     }
 
+    Pixel Node::pixel_position() {
+        return this->pixel_position_;
+    }
+
+    void Node::pixel_position(Pixel t_pixel_position) {
+        this->pixel_position_ = t_pixel_position;
+    }
+
     // Anchoring
 
     void Node::anchor(Normalized t_anchor) {
@@ -74,15 +79,45 @@ namespace OPTIC {
         return this->size_;
     }
 
+    void Node::pixel_dimentions(Pixel t_pixel_dimentions) {
+        this->pixel_dimentions_ = t_pixel_dimentions;
+    }
+
+    Pixel Node::pixel_dimentions() {
+        return this->pixel_dimentions_;
+    }
+
     // Visibility
 
     void Node::hide() {
-        hidden = true;
-        shown = false;
+        this->visibility_ = HIDDEN;
     }
 
     void Node::show() {
-        hidden = false;
-        shown = true;
+        this->visibility_ = SHOWN;
+    }
+
+    // Family tree
+
+    void Node::add_child(Node* child) {
+        child->parent(this);
+        child->window(this->window());
+        children_.push_back(child);
+    }
+
+    void Node::parent(Node* t_parent) {
+        this->parent_ = t_parent;
+    }
+
+    Node* Node::parent() {
+        return this->parent_;
+    }
+
+    void Node::window(Window* t_window) {
+        this->window_ = t_window;
+    }
+
+    Window* Node::window() {
+        return this->window_;
     }
 }

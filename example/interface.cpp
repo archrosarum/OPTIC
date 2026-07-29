@@ -12,15 +12,20 @@ using namespace OPTIC;
 int main() {
 
     Runtime main;
-
     Window welcome;
-        welcome.bind_event(EVENT(event_open), on_window_launch);
+    
 
-    Rectangle rect2;
-    welcome.add_child(&rect2);
-    rect2.size({rect2.size().x / welcome.aspect_ratio(), rect2.size().y});
+    Rectangle rect_big;
+        rect_big.size({1.5f, 1.5f});
+
+    welcome.add_child(&rect_big);
+
+    Rectangle rect_small;
+        rect_small.size({1.5f, 1.5f});
+        rect_small.set_fill_color({0, 255, 0});
 
     
+    rect_big.add_child(&rect_small);
     
     main.add_child(&welcome);
     

@@ -33,16 +33,36 @@ namespace OPTIC {
     }
 
     void Rectangle::render() {
-        SDL_Renderer* internal_renderer = this->get_parent()->get_internal_renderer();
-        Window* parent = this->get_parent();
+        Pixel parent_pixel_position;
+        Pixel parent_pixel_dimentions;
+
+        if (this->parent() == nullptr && this->window() != nullptr) {
+            parent_pixel_position = {0, 0};
+            parent_pixel_dimentions = this->window()->pixel_dimentions();
+        } else if (this->parent() != nullptr && this->window() != nullptr) {
+            parent_pixel_position = this->parent()->pixel_position();
+            parent_pixel_dimentions = this->parent()->pixel_dimentions();
+        } else {
+            parent_pixel_position = {0, 0};
+            parent_pixel_dimentions = {0, 0};
+        }
+
+        SDL_Renderer* internal_renderer = this->window()->get_internal_renderer();
+        Window* parent = this->window();
 
         SDL_FRect geometry;
 
-        geometry.w = (float) parent->pixel_size(size()).x;
-        geometry.h = (float) parent->pixel_size(size()).y;
+        geometry.w = (float)((size().x / 2.0) * parent_pixel_dimentions.x);
+        geometry.h = (float)((size().y / 2.0) * parent_pixel_dimentions.y);
 
-        geometry.x = (float) parent->pixel_position(position()).x - ((this->anchor().x + 1.0) * (geometry.w / 2.0));
-        geometry.y = (float) parent->pixel_position(position()).y - ((1.0 - this->anchor().y) * (geometry.h / 2.0));
+        float center_x = parent_pixel_position.x + (float)(((position().x + 1.0) * parent_pixel_dimentions.x) / 2.0);
+        float center_y = parent_pixel_position.y + (float)(((1.0 - position().y) * parent_pixel_dimentions.y) / 2.0);
+
+        geometry.x = center_x - ((this->anchor().x + 1.0f) * (geometry.w / 2.0f));
+        geometry.y = center_y - ((1.0f - this->anchor().y) * (geometry.h / 2.0f));
+
+        pixel_dimentions({(int)geometry.w, (int)geometry.h});
+        pixel_position({(int)geometry.x, (int)geometry.y});
 
         if (is_filled) {
             SDL_SetRenderDrawColor(internal_renderer, fill_color.red, fill_color.green, fill_color.blue, 255);
@@ -53,16 +73,16 @@ namespace OPTIC {
             
             SDL_SetRenderDrawColor(internal_renderer, outline_color.red, outline_color.green, outline_color.blue, 255);
             
-            SDL_FRect top = { geometry.x, geometry.y, geometry.w, outline_thickness * get_parent()->get_multiplier()};
+            SDL_FRect top = { geometry.x, geometry.y, geometry.w, outline_thickness * window()->get_multiplier()};
             SDL_RenderFillRect(internal_renderer, &top);
 
-            SDL_FRect bottom = { geometry.x, geometry.y + geometry.h - outline_thickness * get_parent()->get_multiplier(), geometry.w, outline_thickness };
+            SDL_FRect bottom = { geometry.x, geometry.y + geometry.h - outline_thickness * window()->get_multiplier(), geometry.w, outline_thickness };
             SDL_RenderFillRect(internal_renderer, &bottom);
 
-            SDL_FRect left = { geometry.x, geometry.y, outline_thickness * get_parent()->get_multiplier(), geometry.h };
+            SDL_FRect left = { geometry.x, geometry.y, outline_thickness * window()->get_multiplier(), geometry.h };
             SDL_RenderFillRect(internal_renderer, &left);
 
-            SDL_FRect right = { geometry.x + geometry.w - outline_thickness, geometry.y, outline_thickness * get_parent()->get_multiplier(), geometry.h };
+            SDL_FRect right = { geometry.x + geometry.w - outline_thickness, geometry.y, outline_thickness * window()->get_multiplier(), geometry.h };
             SDL_RenderFillRect(internal_renderer, &right);
             
         }
