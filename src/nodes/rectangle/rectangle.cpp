@@ -5,7 +5,11 @@
 
 namespace OPTIC {
 
+    // constructor and destructor
+
     Rectangle::Rectangle() : Node() {
+        this->size({0.25f, 0.25f});
+
         is_filled = true;
         is_outlined = false;
         outline_thickness = 1;
@@ -18,14 +22,27 @@ namespace OPTIC {
 
     }
 
-    void Rectangle::tick() {
+    // functions overriden as required by base class
+
+    void Rectangle::handle_display_change() {
+        
+    }
+
+    void Rectangle::process() {
+
+    }
+
+    void Rectangle::render() {
         SDL_Renderer* internal_renderer = this->get_parent()->get_internal_renderer();
+        Window* parent = this->get_parent();
 
         SDL_FRect geometry;
-        geometry.x = (float) position.x * get_parent()->get_multiplier();
-        geometry.y = (float) position.y * get_parent()->get_multiplier();
-        geometry.w = (float) size.x * get_parent()->get_multiplier();
-        geometry.h = (float) size.y * get_parent()->get_multiplier();
+
+        geometry.w = (float) parent->pixel_size(size()).x;
+        geometry.h = (float) parent->pixel_size(size()).y;
+
+        geometry.x = (float) parent->pixel_position(position()).x - ((this->anchor().x + 1.0) * (geometry.w / 2.0));
+        geometry.y = (float) parent->pixel_position(position()).y - ((1.0 - this->anchor().y) * (geometry.h / 2.0));
 
         if (is_filled) {
             SDL_SetRenderDrawColor(internal_renderer, fill_color.red, fill_color.green, fill_color.blue, 255);
@@ -33,6 +50,7 @@ namespace OPTIC {
         }
         
         if (is_outlined) {
+            
             SDL_SetRenderDrawColor(internal_renderer, outline_color.red, outline_color.green, outline_color.blue, 255);
             
             SDL_FRect top = { geometry.x, geometry.y, geometry.w, outline_thickness * get_parent()->get_multiplier()};
@@ -46,24 +64,12 @@ namespace OPTIC {
 
             SDL_FRect right = { geometry.x + geometry.w - outline_thickness, geometry.y, outline_thickness * get_parent()->get_multiplier(), geometry.h };
             SDL_RenderFillRect(internal_renderer, &right);
+            
         }
-    }
-
-    void Rectangle::handle_display_change() {
         
     }
 
-    OPTIC::Rectangle*   Rectangle::set_position(float x, float y) {
-        this->position = {x, y};
-
-        return this;
-    }
-
-    OPTIC::Rectangle*   Rectangle::set_size(float width, float height) {
-        this->size = {width, height};
-
-        return this;
-    }
+    // functions unique to this derived class
 
     OPTIC::Rectangle* Rectangle::set_fill_color(OPTIC::Color new_color) {
         this->fill_color = new_color;

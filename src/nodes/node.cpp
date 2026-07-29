@@ -3,6 +3,10 @@
 
 namespace OPTIC {
     Node::Node() {
+        this->position_ = {0.0f, 0.0f};
+        this->anchor_ = {0.0f, 0.0f};
+        this->size_ = {0.0f, 0.0f};
+
         this->parent = nullptr;
         this->shown = true;
 
@@ -40,12 +44,37 @@ namespace OPTIC {
         // meant to be overwritten
     }
 
-    void                position(Normalized t_position);    // mutator
-    Normalized          position();                         // accessor
+    // Positioning
 
-    void                anchor(Normalized t_anchor);        // mutator
-    Normalized          anchor();                           // accessor
+    void Node::position(Normalized t_position) {
+        this->position_ = t_position;
+    }
 
+    Normalized Node::position() {
+        return this->position_;
+    }
+
+    // Anchoring
+
+    void Node::anchor(Normalized t_anchor) {
+        this->anchor_ = t_anchor;
+    }
+
+    Normalized Node::anchor() {
+        return this->anchor_;
+    }
+
+    // Sizing
+
+    void Node::size(Normalized t_size) {
+        this->size_ = t_size;
+    }
+
+    Normalized Node::size() {
+        return this->size_;
+    }
+
+    // Visibility
 
     void Node::hide() {
         hidden = true;

@@ -16,7 +16,9 @@ namespace OPTIC {
         Text();
         ~Text() override;
 
-        void                tick() override;
+        void                process() override;
+        void                render() override;
+        
         void                handle_display_change() override;
 
         void                cache();
@@ -24,8 +26,6 @@ namespace OPTIC {
 
         OPTIC::Text*        set_font(std::string font_path);
         OPTIC::Text*        set_text(std::string new_text);
-        OPTIC::Text*        set_position(Normalized new_position);
-        OPTIC::Text*        set_anchor(Normalized new_anchor);
         OPTIC::Text*        set_font_size(float new_font_size);
         OPTIC::Text*        set_color(OPTIC::Color new_color);
 

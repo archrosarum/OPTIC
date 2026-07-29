@@ -17,7 +17,11 @@ namespace OPTIC {
 
     }
 
-    void Text::tick() {
+    void Text::process() {
+
+    }
+
+    void Text::render() {
         TTF_TextEngine* internal_text_engine = this->get_parent()->get_internal_text_engine();
 
         int width, height;
@@ -27,6 +31,7 @@ namespace OPTIC {
         float draw_x = (float) (position.x * get_parent()->get_multiplier());
         float draw_y = (float) (position.y * get_parent()->get_multiplier());
 
+        /*
         if (justify == Text::Justify::CENTER) {
             draw_x -= width / 2;
             draw_y -= height / 2;
@@ -36,6 +41,7 @@ namespace OPTIC {
             draw_x += width / 2;
             draw_y += height / 2;
         }
+        */
 
         TTF_DrawRendererText(text_cache, draw_x, draw_y);
     }
@@ -75,19 +81,6 @@ namespace OPTIC {
         if (!font) {
             SDL_Log("Failed to load font: %s", SDL_GetError());
         }
-    }
-
-    OPTIC::Text* Text::set_justify(Text::Justify new_justify) {
-        this->justify = new_justify;
-
-        return this;
-    }
-
-
-    OPTIC::Text*   Text::set_position(OPTIC::Coord new_position) {
-        this->position = {new_position.x, new_position.y};
-
-        return this;
     }
 
     OPTIC::Text*   Text::set_font_size(float new_font_size) {

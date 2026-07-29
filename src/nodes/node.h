@@ -30,6 +30,9 @@ namespace OPTIC {
         void                anchor(Normalized t_anchor);        // mutator
         Normalized          anchor();                           // accessor
 
+        void                size(Normalized t_size);            // mutator
+        Normalized          size();                             // accessor
+
         void                set_parent(OPTIC::Window*);
         OPTIC::Window*      get_parent();
 
@@ -39,6 +42,7 @@ namespace OPTIC {
         // Positioning
         Normalized          position_;
         Normalized          anchor_;
+        Normalized          size_;
 
         bool                hidden;
         bool                shown;

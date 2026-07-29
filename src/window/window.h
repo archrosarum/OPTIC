@@ -65,11 +65,20 @@ namespace OPTIC {
         OPTIC::Window*      bind_to_event_init(void (*new_event_init)());
         void                run_event_init();
 
+        Pixel               pixel_position(Normalized ndc);
+        Pixel               pixel_size(Normalized ndc);
+
+        float               aspect_ratio();           
+
     private:
         void                try_text_support();
         bool                has_text_support;
 
         std::vector<OPTIC::Node*> children;
+
+        int pixel_width;
+        int pixel_height;
+        float aspect_ratio_;
 
         std::string         title;
         Window::Size        size;

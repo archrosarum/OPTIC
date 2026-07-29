@@ -10,11 +10,10 @@ namespace OPTIC {
         Rectangle();
         ~Rectangle() override;
 
-        void                tick() override;
+        void                process() override;
+        void                render() override;
         void                handle_display_change() override;
 
-        OPTIC::Rectangle*   set_position(float x, float y);
-        OPTIC::Rectangle*   set_size(float width, float height);
         OPTIC::Rectangle*   set_fill_color(OPTIC::Color new_color);
         OPTIC::Rectangle*   set_outline_color(OPTIC::Color new_color);
         OPTIC::Rectangle*   set_outline_thickness(float new_outline_thickness);
@@ -32,8 +31,5 @@ namespace OPTIC {
         OPTIC::Color        outline_color;
 
         float               outline_thickness;
-
-        Coord               position;
-        Coord               size;
     };
 }

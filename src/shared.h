@@ -12,20 +12,4 @@
 
 // Custom coordinate struct
 
-namespace OPTIC {
-    struct Normalized {
-        float x;
-        float y;
-    };
-
-    struct Coord {
-        float x;
-        float y;
-    };
-
-    struct Color {
-        int red;
-        int green;
-        int blue;
-    };
-}
+#include "datatypes.h"

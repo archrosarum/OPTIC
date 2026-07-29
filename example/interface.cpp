@@ -16,21 +16,12 @@ int main() {
     Window welcome;
         welcome.bind_event(EVENT(event_open), on_window_launch);
 
-    Text label;
-        label.set_position(welcome.get_center());
-        label.set_font_size(24);
-        label.set_justify(OPTIC::Text::Justify::CENTER);
-        label.set_text("Welcome!");
-    
-    Rectangle border;
-        border.set_position(5, 5);
-        border.filled(false);
-        border.outlined(true);
-        border.set_size(welcome.get_size().width - 10, welcome.get_size().height - 10);
-        border.set_outline_thickness(2);
+    Rectangle rect2;
+    welcome.add_child(&rect2);
+    rect2.size({rect2.size().x / welcome.aspect_ratio(), rect2.size().y});
 
-    welcome.add_child(&label);
-    welcome.add_child(&border);
+    
+    
     main.add_child(&welcome);
     
 

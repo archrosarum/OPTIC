@@ -39,13 +39,12 @@ namespace OPTIC {
     }
 
     void Window::handle_display_change() {
-        int true_window_width, true_window_height;
-        SDL_GetWindowSizeInPixels(sdl_window, &true_window_width, &true_window_height);
+        SDL_GetWindowSizeInPixels(sdl_window, &this->pixel_width, &this->pixel_height);
+        SDL_SetRenderLogicalPresentation(sdl_renderer, this->pixel_width, this->pixel_height, SDL_LOGICAL_PRESENTATION_DISABLED);
 
-        SDL_SetRenderLogicalPresentation(sdl_renderer, true_window_width, true_window_height, SDL_LOGICAL_PRESENTATION_STRETCH);
-
-        pixel_density = SDL_GetWindowPixelDensity(sdl_window);
-        display_scale = SDL_GetWindowDisplayScale(sdl_window);
+        this->aspect_ratio_ = (float)(this->pixel_width) / (float)(this->pixel_height);
+        this->pixel_density = SDL_GetWindowPixelDensity(sdl_window);
+        this->display_scale = SDL_GetWindowDisplayScale(sdl_window);
 
         for (int i = 0; i < children.size(); i++) {
             children.at(i)->handle_display_change();
@@ -95,10 +94,12 @@ namespace OPTIC {
         new_node->set_parent(this);
         children.push_back(new_node);
 
+        /*
         if (auto* node_cast = dynamic_cast<OPTIC::Text*>(new_node)) {
             try_text_support();
             node_cast->cache();
         } 
+        */
 
         return this;
     }
@@ -142,6 +143,10 @@ namespace OPTIC {
 
     OPTIC::Coord Window::get_center() {
         return this->center;
+    }
+
+    float Window::aspect_ratio() {
+        return this->aspect_ratio_;
     }
 
 
@@ -238,5 +243,23 @@ namespace OPTIC {
 
     float Window::get_multiplier() {
         return scale * pixel_density;
+    }
+
+    Pixel Window::pixel_position(Normalized ndc) {
+        Pixel return_px;
+
+        return_px.x = (int)(((ndc.x + 1.0) * this->pixel_width) / 2.0);
+        return_px.y = (int)(((1.0 - ndc.y) * this->pixel_height) / 2.0);
+
+        return return_px;
+    }
+
+    Pixel Window::pixel_size(Normalized ndc) {
+        Pixel return_px;
+
+        std::abs(return_px.x = (int)((ndc.x * this->pixel_width) / 2.0));
+        std::abs(return_px.y = (int)((ndc.y * this->pixel_height) / 2.0));
+
+        return return_px;
     }
 }
