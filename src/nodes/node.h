@@ -16,15 +16,30 @@ namespace OPTIC {
         }
 
         virtual void        handle_display_change();
-        virtual void        tick();
+
+        void                tick();
+        virtual void        process();
+        virtual void        render();
 
         void                hide();
         void                show();
 
+        void                position(Normalized t_position);    // mutator
+        Normalized          position();                         // accessor
+
+        void                anchor(Normalized t_anchor);        // mutator
+        Normalized          anchor();                           // accessor
+
         void                set_parent(OPTIC::Window*);
         OPTIC::Window*      get_parent();
+
+
         
     private:
+        // Positioning
+        Normalized          position_;
+        Normalized          anchor_;
+
         bool                hidden;
         bool                shown;
 

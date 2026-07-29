@@ -4,6 +4,7 @@
 namespace OPTIC {
     Node::Node() {
         this->parent = nullptr;
+        this->shown = true;
 
         SDL_Init(SDL_INIT_VIDEO);
     }
@@ -21,12 +22,30 @@ namespace OPTIC {
     }
 
     void Node::tick() {
-        // to be overwritten
+        process();
+        if (shown) {
+            render();
+        }
+    }
+
+    void Node::process() {
+        // meant to be overwritten
+    }
+
+    void Node::render() {
+        // meant to be overwritten
     }
 
     void Node::handle_display_change() {
-        // to be overwritten
+        // meant to be overwritten
     }
+
+    void                position(Normalized t_position);    // mutator
+    Normalized          position();                         // accessor
+
+    void                anchor(Normalized t_anchor);        // mutator
+    Normalized          anchor();                           // accessor
+
 
     void Node::hide() {
         hidden = true;

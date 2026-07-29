@@ -13,6 +13,11 @@
 // Custom coordinate struct
 
 namespace OPTIC {
+    struct Normalized {
+        float x;
+        float y;
+    };
+
     struct Coord {
         float x;
         float y;
