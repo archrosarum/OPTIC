@@ -29,6 +29,8 @@
 #include "../src/nodes/rectangle/rectangle.h"
 #define NEW_RECTANGLE(...) (new OPTIC::Rectangle(__VA_ARGS__))
 
+#include "../src/measure/measure.h"
+
 
 
 

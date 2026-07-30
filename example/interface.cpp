@@ -12,22 +12,26 @@ using namespace OPTIC;
 int main() {
 
     Runtime main;
-    Window welcome;
+
+    Window window;
+    main.add_child(&window);
+    window.set_background({0, 0, 0});
+
+
+    Rectangle rect;
+    window.add_child(&rect);
+    rect.size({1.75f, 1.75f});
+    rect.position({-0.5f, 0.0f});
+    rect.set_fill_color({255, 255, 255});
+
+    Rectangle thing;
+    rect.add_child(&thing);
+    thing.size({0.5f, 1.0f});
+    thing.anchor({-1.0f, 1.0f});
+    thing.position({-1.0f, 1.0f});
+    thing.set_fill_color({255, 0, 0});
+
     
-
-    Rectangle rect_big;
-        rect_big.size({1.5f, 1.5f});
-
-    welcome.add_child(&rect_big);
-
-    Rectangle rect_small;
-        rect_small.size({1.5f, 1.5f});
-        rect_small.set_fill_color({0, 255, 0});
-
-    
-    rect_big.add_child(&rect_small);
-    
-    main.add_child(&welcome);
     
 
     main.loop();

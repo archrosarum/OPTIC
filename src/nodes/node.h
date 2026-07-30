@@ -30,11 +30,11 @@ namespace OPTIC {
         void                size(Normalized t_size);                      // mutator
         Normalized          size();                                       // accessor
 
-        void                pixel_dimentions(Pixel t_pixel_dimentions);   // mutatot
-        Pixel               pixel_dimentions();                           // accessor
+        void                size_px(Pixel t_size_px);                     // mutator
+        Pixel               size_px();                                    // accessor
 
-        void                pixel_position(Pixel t_pixel_position);       // mutator
-        Pixel               pixel_position();                             // accessor
+        void                position_px(Pixel t_position_px);             // mutator
+        Pixel               position_px();                                // accessor
 
         void                add_child(Node* child);                       // adopts a pointer to a node
 
@@ -51,8 +51,8 @@ namespace OPTIC {
         Normalized          anchor_;                             // normalized coordinate of node position based on size
         Normalized          size_;                               // size is a normalized device coordinate (2.0 = entire dimention)
 
-        Pixel               pixel_dimentions_;                   // size as raw computed pixels
-        Pixel               pixel_position_;                     // position as raw computed pixels
+        Pixel               position_px_;                        // position as raw computed pixels
+        Pixel               size_px_;                            // size as raw computed pixels
 
         Visibility          visibility_;                         // controlls whether the node will render
 

@@ -51,12 +51,12 @@ namespace OPTIC {
         return this->position_;
     }
 
-    Pixel Node::pixel_position() {
-        return this->pixel_position_;
+    Pixel Node::position_px() {
+        return this->position_px_;
     }
 
-    void Node::pixel_position(Pixel t_pixel_position) {
-        this->pixel_position_ = t_pixel_position;
+    void Node::position_px(Pixel t_position_px) {
+        this->position_px_ = t_position_px;
     }
 
     // Anchoring
@@ -79,12 +79,12 @@ namespace OPTIC {
         return this->size_;
     }
 
-    void Node::pixel_dimentions(Pixel t_pixel_dimentions) {
-        this->pixel_dimentions_ = t_pixel_dimentions;
+    void Node::size_px(Pixel t_size_px) {
+        this->size_px_ = t_size_px;
     }
 
-    Pixel Node::pixel_dimentions() {
-        return this->pixel_dimentions_;
+    Pixel Node::size_px() {
+        return this->size_px_;
     }
 
     // Visibility

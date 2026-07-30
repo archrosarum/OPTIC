@@ -12,6 +12,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(${LIBRARY_NAME}
     src/runtime/runtime.cpp
 
+    src/measure/measure.cpp
+
     src/window/window.cpp
 
     src/nodes/node.cpp

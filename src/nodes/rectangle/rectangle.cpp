@@ -33,18 +33,18 @@ namespace OPTIC {
     }
 
     void Rectangle::render() {
-        Pixel parent_pixel_position;
-        Pixel parent_pixel_dimentions;
+        Pixel parent_position_px;
+        Pixel parent_size_px;
 
         if (this->parent() == nullptr && this->window() != nullptr) {
-            parent_pixel_position = {0, 0};
-            parent_pixel_dimentions = this->window()->pixel_dimentions();
-        } else if (this->parent() != nullptr && this->window() != nullptr) {
-            parent_pixel_position = this->parent()->pixel_position();
-            parent_pixel_dimentions = this->parent()->pixel_dimentions();
+            parent_position_px = {0, 0};
+            parent_size_px = this->window()->pixel_dimentions();
+        } else if (this->parent() != nullptr) {
+            parent_position_px = this->parent()->position_px();
+            parent_size_px = this->parent()->size_px();
         } else {
-            parent_pixel_position = {0, 0};
-            parent_pixel_dimentions = {0, 0};
+            parent_position_px = {0, 0};
+            parent_size_px = {0, 0};
         }
 
         SDL_Renderer* internal_renderer = this->window()->get_internal_renderer();
@@ -52,17 +52,17 @@ namespace OPTIC {
 
         SDL_FRect geometry;
 
-        geometry.w = (float)((size().x / 2.0) * parent_pixel_dimentions.x);
-        geometry.h = (float)((size().y / 2.0) * parent_pixel_dimentions.y);
+        geometry.w = (float)((size().x / 2.0) * parent_size_px.x);
+        geometry.h = (float)((size().y / 2.0) * parent_size_px.y);
 
-        float center_x = parent_pixel_position.x + (float)(((position().x + 1.0) * parent_pixel_dimentions.x) / 2.0);
-        float center_y = parent_pixel_position.y + (float)(((1.0 - position().y) * parent_pixel_dimentions.y) / 2.0);
+        float center_x = parent_position_px.x + (float)(((position().x + 1.0) * parent_size_px.x) / 2.0);
+        float center_y = parent_position_px.y + (float)(((1.0 - position().y) * parent_size_px.y) / 2.0);
 
-        geometry.x = center_x - ((this->anchor().x + 1.0f) * (geometry.w / 2.0f));
-        geometry.y = center_y - ((1.0f - this->anchor().y) * (geometry.h / 2.0f));
+        geometry.x = center_x - (((this->anchor().x + 1.0f) / 2.0f) * geometry.w);
+        geometry.y = center_y - (((1.0f - this->anchor().y) / 2.0f) * geometry.h);
 
-        pixel_dimentions({(int)geometry.w, (int)geometry.h});
-        pixel_position({(int)geometry.x, (int)geometry.y});
+        size_px({(int)geometry.w, (int)geometry.h});
+        position_px({(int)geometry.x, (int)geometry.y});
 
         if (is_filled) {
             SDL_SetRenderDrawColor(internal_renderer, fill_color.red, fill_color.green, fill_color.blue, 255);
