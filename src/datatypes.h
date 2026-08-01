@@ -8,6 +8,16 @@ namespace OPTIC {
         float y;
     };
 
+    struct Logical {
+        int x;
+        int y;
+    };
+
+    struct Pixel {
+        int x;
+        int y;
+    };
+
     struct Anchor {
         // one-dimentional
         static constexpr float MIDDLE = 0.0f;
@@ -25,11 +35,6 @@ namespace OPTIC {
     enum Visibility {
         SHOWN = 1,
         HIDDEN = 0
-    };
-
-    struct Pixel {
-        int x;
-        int y;
     };
 
     struct Coord {

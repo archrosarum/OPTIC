@@ -11,28 +11,26 @@ using namespace OPTIC;
 
 int main() {
 
+    Rectangle rect;
+        rect.size({1.75f, 1.75f});
+        rect.position({0.0f, 0.0f});
+        rect.fill_color({0, 255, 255});
+        rect.outlined(true);
+        rect.outline_thickness(2);
+        Rectangle little(&rect);
+            little.fill_color({255, 255, 0});
+            little.outlined(true);
+            little.outline_thickness(2);
+            little.size({1.5f, 1.5f});
+            little.anchor({-1.0f, 1.0f});
+            little.position({-1.0f, 1.0f});
+    
     Runtime main;
 
-    Window window;
-    main.add_child(&window);
-    window.set_background({0, 0, 0});
-
-
-    Rectangle rect;
-    window.add_child(&rect);
-    rect.size({1.75f, 1.75f});
-    rect.position({-0.5f, 0.0f});
-    rect.set_fill_color({255, 255, 255});
-
-    Rectangle thing;
-    rect.add_child(&thing);
-    thing.size({0.5f, 1.0f});
-    thing.anchor({-1.0f, 1.0f});
-    thing.position({-1.0f, 1.0f});
-    thing.set_fill_color({255, 0, 0});
-
-    
-    
+    Window window(&main);
+        window.set_background({255, 0, 255});
+        Rectangle* rect_copy = static_cast<Rectangle*>(rect.copy());
+        window.add_child(rect_copy);
 
     main.loop();
 }

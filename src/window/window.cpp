@@ -3,6 +3,7 @@
 #include "../runtime/runtime.h"
 #include "../nodes/node.h"
 #include "../nodes/text/text.h"
+#include "../nodes/frame/window_frame/window_frame.h"
 
 namespace OPTIC {
     SDL_HitTestResult SDLCALL borderless_callback(SDL_Window* window, const SDL_Point* point, void* data) {
@@ -13,7 +14,7 @@ namespace OPTIC {
         }
     }
 
-    Window::Window() {
+    Window::Window(Runtime* runtime) : frame_(this) {
         SDL_Init(SDL_INIT_VIDEO);
         
         set_size({480, 360});
@@ -34,6 +35,25 @@ namespace OPTIC {
 
         SDL_SetWindowHitTest(this->sdl_window, borderless_callback, NULL);
         SDL_SetRenderVSync(this->sdl_renderer, 1);
+
+        frame_.window(this);
+        frame_.rasterize_to_window(this);
+        
+        frame_.size({2.0f, 2.0f});
+        frame_.position({0.0f, 0.0f});
+
+        runtime->add_child(this);
+
+        // Force compositer to draw the window
+        SDL_ShowWindow(this->sdl_window);
+        int w, h;
+        SDL_GetWindowSize(this->sdl_window, &w, &h);
+        SDL_SetWindowSize(this->sdl_window, w, h + 1);
+        SDL_SyncWindow(this->sdl_window);
+        SDL_SetWindowSize(this->sdl_window, w, h);
+        SDL_SyncWindow(this->sdl_window);
+
+        handle_display_change();
     }
 
     Window::~Window() {
@@ -53,6 +73,8 @@ namespace OPTIC {
         }
 
         pixel_dimentions_ = {this->pixel_width, this->pixel_height};
+
+        frame_.rasterize_to_window(this);
     }
 
     void Window::bring_to_center() {
@@ -67,11 +89,7 @@ namespace OPTIC {
         SDL_SetRenderDrawColor(sdl_renderer, background.red, background.green, background.blue, 255);
         SDL_RenderClear(sdl_renderer);
 
-        for (int i = 0; i < children.size(); i++) {
-            OPTIC::Node* this_node = children.at(i);
-
-            this_node->tick();
-        }
+        frame_.tick();
 
         SDL_RenderPresent(sdl_renderer);
     }
@@ -95,8 +113,7 @@ namespace OPTIC {
     // Window children functions
 
     OPTIC::Window* Window::add_child(OPTIC::Node* new_node) {
-        new_node->window(this);
-        children.push_back(new_node);
+        frame_.add_child(new_node);
 
         /*
         if (auto* node_cast = dynamic_cast<OPTIC::Text*>(new_node)) {
@@ -237,16 +254,6 @@ namespace OPTIC {
         if (func != nullptr) {
             func();
         }
-    }
-
-    OPTIC::Window Window::make_copy() const {
-        Window copy;
-        copy.set_title(this->title);
-        copy.set_size(this->size);
-        copy.set_scale(this->scale);
-        copy.set_background(this->background);
-
-        return copy;
     }
 
     float Window::get_multiplier() {

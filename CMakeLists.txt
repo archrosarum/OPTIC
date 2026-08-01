@@ -11,12 +11,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(${LIBRARY_NAME}
     src/runtime/runtime.cpp
-
     src/measure/measure.cpp
-
     src/window/window.cpp
-
     src/nodes/node.cpp
+        src/nodes/frame/frame.cpp
+            src/nodes/frame/window_frame/window_frame.cpp
         #src/nodes/text/text.cpp
         src/nodes/rectangle/rectangle.cpp
 )
@@ -32,7 +31,7 @@ target_include_directories(${LIBRARY_NAME}
 )
 
 
-# EXAMPLE PROGRAM
+# EXAMPLE PROGRAM <3
 
 set(EXAMPLE_NAME "example")
 

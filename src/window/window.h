@@ -2,9 +2,11 @@
 
 #include "../shared.h"
 #include "../nodes/node.h"
-
+#include "../nodes/frame/window_frame/window_frame.h"
 
 namespace OPTIC {
+
+    class Runtime;
 
     class Window {
     public:
@@ -15,7 +17,7 @@ namespace OPTIC {
             int height;
         };
 
-        Window();
+        Window(Runtime* runtime); 
         ~Window();
         
         void                tick();
@@ -28,7 +30,6 @@ namespace OPTIC {
 
         OPTIC::Window*      add_child(OPTIC::Node* new_node);
         OPTIC::Window*      bind_event(EventPointer event_ptr, void (*new_event)());
-        OPTIC::Window       make_copy() const;
 
         void                handle_display_change();
 
@@ -97,5 +98,7 @@ namespace OPTIC {
         SDL_Window*         sdl_window;
         SDL_Renderer*       sdl_renderer;
         TTF_TextEngine*     ttf_engine;
+
+        WindowFrame frame_;
     };
 }

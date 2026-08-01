@@ -9,23 +9,48 @@ namespace OPTIC {
 
     class Node {
     public:
-                            Node();                                       // constructor
+
+        // Memory management
+
+        Node();                                                           // constructor for a top level node
+        Node(Node* t_parent);                                             // constructor for a child node
+
+        Node*               copy();                                       // base class copy constructor
+        virtual Node*       derived_copy() const = 0;                     // backend copy for derived classes
+
         virtual             ~Node();                                      // destructor
 
-        virtual void        handle_display_change();
+        // Family tree
+
+        void                add_child(Node* child);                       // sets parent/child relationship from the parent node
+        void                is_child_of(Node* t_parent);                  // sets parent/child relationship from the child node
+
+        void                parent(Node* t_parent);                       // mutator
+        Node*               parent();                                     // accessor
+
+        // Looping
 
         void                tick();                                       // entrypoint for parent
         virtual void        process();                          
         virtual void        render();
 
+        // Visibility
+
         void                hide();
         void                show();
+
+        // Positioning
 
         void                position(Normalized t_position);              // mutator
         Normalized          position();                                   // accessor
 
+        void                position_px(Pixel t_position_px);             // mutator
+        Pixel               position_px();                                // accessor
+
         void                anchor(Normalized t_anchor);                  // mutator
         Normalized          anchor();                                     // accessor
+
+        // Sizing
 
         void                size(Normalized t_size);                      // mutator
         Normalized          size();                                       // accessor
@@ -33,32 +58,24 @@ namespace OPTIC {
         void                size_px(Pixel t_size_px);                     // mutator
         Pixel               size_px();                                    // accessor
 
-        void                position_px(Pixel t_position_px);             // mutator
-        Pixel               position_px();                                // accessor
+        // Windowing
 
-        void                add_child(Node* child);                       // adopts a pointer to a node
-
-        void                parent(Node* t_parent);                       // mutator
-        Node*               parent();                                     // accessor
-
-        void                window(Window* t_window);                     // mutator
-        Window*             window();                                     // accessor
-
+        virtual Window*     check_for_window();                           // climbs family tree in search of a window
+        void                rasterize_to_window(Window* window);          // pixel conversion of ndc attributes based on provided window
+        virtual void        handle_display_change();                     
 
     private:
-        // Positioning
         Normalized          position_;                           // normalized coordinate position based on parent size
-        Normalized          anchor_;                             // normalized coordinate of node position based on size
-        Normalized          size_;                               // size is a normalized device coordinate (2.0 = entire dimention)
-
         Pixel               position_px_;                        // position as raw computed pixels
+
+        Normalized          anchor_;                             // normalized coordinate of node position based on size
+        
+        Normalized          size_;                               // size is a normalized device coordinate (2.0 = entire dimention)
         Pixel               size_px_;                            // size as raw computed pixels
 
         Visibility          visibility_;                         // controlls whether the node will render
 
-        Window*             window_;                             // pointer to the window that owns this node
         Node*               parent_;                             // pointer to the parent node
-        
         std::vector<Node*>  children_;                           // all children nodes
     };  
 }
