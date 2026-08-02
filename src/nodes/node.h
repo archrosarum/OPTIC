@@ -15,6 +15,12 @@ namespace OPTIC {
         Node();                                                           // constructor for a top level node
         Node(Node* t_parent);                                             // constructor for a child node
 
+        template <typename T>
+        T* copy_as() {
+            Node* result = this->copy();
+            return static_cast<T*>(result);
+        }
+
         Node*               copy();                                       // base class copy constructor
         virtual Node*       derived_copy() const = 0;                     // backend copy for derived classes
 
@@ -59,18 +65,18 @@ namespace OPTIC {
 
         // Positioning
 
-        void                position(Normalized t_position);              // mutator
+        Node*               position(Normalized t_position);              // mutator
         Normalized          position();                                   // accessor
 
         void                position_px(Pixel t_position_px);             // mutator
         Pixel               position_px();                                // accessor
 
-        void                anchor(Normalized t_anchor);                  // mutator
+        Node*               anchor(Normalized t_anchor);                  // mutator
         Normalized          anchor();                                     // accessor
 
         // Sizing
 
-        void                size(Normalized t_size);                      // mutator
+        Node*               size(Normalized t_size);                      // mutator
         Normalized          size();                                       // accessor
 
         void                size_px(Pixel t_size_px);                     // mutator

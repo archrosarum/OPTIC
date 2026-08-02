@@ -6,16 +6,16 @@
 namespace OPTIC {
 
     Text::Text() : Node() {
-        color_ = {0, 0, 0};
+        font_color_ = {0, 0, 0};
         font_path_ = "src/fonts/times_new_roman.ttf";
-        font_size_ = 11;
+        font_size_ = 16;
         text_ = "Text";
     }
 
     Text::Text(Node* parent) : Node() {
-        color_ = {0, 0, 0};
+        font_color_ = {0, 0, 0};
         font_path_ = "src/fonts/times_new_roman.ttf";
-        font_size_ = 11;
+        font_size_ = 16;
         text_ = "Text";
 
         this->is_child_of(parent);
@@ -23,7 +23,7 @@ namespace OPTIC {
 
     Text::Text(const Text& original) : Node(original)
     {
-        color_ = original.color_;
+        font_color_ = original.font_color_;
         font_path_ = original.font_path_;
         font_size_ = original.font_size_;
         text_ = original.text_;
@@ -93,17 +93,17 @@ namespace OPTIC {
         }
 
         text_cache_ = TTF_CreateText(internal_text_engine, font_, text_.c_str(), 0);
-        TTF_SetTextColor(text_cache_, color_.red, color_.green, color_.blue, 255);
+        TTF_SetTextColor(text_cache_, font_color_.red, font_color_.green, font_color_.blue, 255);
     }
 
-    OPTIC::Text* Text::set_text(std::string new_text) {
-        this->text_ = new_text;
+    OPTIC::Text* Text::text(std::string t_text) {
+        this->text_ = t_text;
         cache();
         return this;
     }
 
-    OPTIC::Text* Text::set_font(std::string new_font_path) {
-        this->font_path_ = new_font_path;
+    OPTIC::Text* Text::font(std::string t_font_path) {
+        this->font_path_ = t_font_path;
 
         if (check_for_window() != nullptr) {
             load_font();
@@ -129,13 +129,13 @@ namespace OPTIC {
         }
     }
 
-    OPTIC::Text* Text::set_font_size(float new_font_size) {
-        this->font_size_ = new_font_size;
+    OPTIC::Text* Text::font_size(float t_font_size) {
+        this->font_size_ = t_font_size;
         return this;
     }
 
-    OPTIC::Text* Text::set_color(OPTIC::Color new_color) {
-        this->color_ = new_color;
+    OPTIC::Text* Text::font_color(OPTIC::Color t_font_color) {
+        this->font_color_ = t_font_color;
         return this;
     }
 }

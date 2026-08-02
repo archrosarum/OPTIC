@@ -3,6 +3,7 @@
 #define EVENT(member) &Window::member
 
 #include "../src/datatypes.h"
+#include "../src/nodes/define.h"
 
 // Runtime
 #include "../src/runtime/runtime.h"

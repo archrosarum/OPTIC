@@ -147,8 +147,10 @@ namespace OPTIC {
 
     // Positioning
 
-    void Node::position(Normalized t_position) {
+    Node* Node::position(Normalized t_position) {
         this->position_ = t_position;
+
+        return this;
     }
 
     Normalized Node::position() {
@@ -166,8 +168,10 @@ namespace OPTIC {
     // Anchoring
 
 
-    void Node::anchor(Normalized t_anchor) {
+    Node* Node::anchor(Normalized t_anchor) {
         this->anchor_ = t_anchor;
+
+        return this;
     }
 
     Normalized Node::anchor() {
@@ -176,8 +180,10 @@ namespace OPTIC {
 
     // Sizing
 
-    void Node::size(Normalized t_size) {
+    Node* Node::size(Normalized t_size) {
         this->size_ = t_size;
+
+        return this;
     }
 
     Normalized Node::size() {

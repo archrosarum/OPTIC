@@ -19,7 +19,7 @@ namespace OPTIC {
         void window(Window* t_window);
         Window* window();
 
-        Window*     check_for_window() override;
+        Window* check_for_window() override;
 
     private:
         Window* window_;

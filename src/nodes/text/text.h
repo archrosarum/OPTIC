@@ -24,15 +24,15 @@ namespace OPTIC {
 
         void cache();
 
-        OPTIC::Text* set_text(std::string new_text);
-        OPTIC::Text* set_font(std::string font_path);
-        OPTIC::Text* set_font_size(float new_font_size);
-        OPTIC::Text* set_color(OPTIC::Color new_color);
+        OPTIC::Text* text(std::string t_text);
+        OPTIC::Text* font(std::string t_font_path);
+        OPTIC::Text* font_size(float t_font_size);
+        OPTIC::Text* font_color(OPTIC::Color t_font_color);
 
     private:
         void load_font();
 
-        OPTIC::Color    color_;
+        OPTIC::Color    font_color_;
         std::string     font_path_;
         float           font_size_;
         std::string     text_;

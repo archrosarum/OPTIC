@@ -17,7 +17,7 @@ namespace OPTIC {
     Window::Window(Runtime* runtime) : frame_(this) {
         SDL_Init(SDL_INIT_VIDEO);
         
-        set_size({480, 360});
+        set_size({640, 480});
         background = {255, 255, 255};
         scale = 1;
         has_text_support = false;
