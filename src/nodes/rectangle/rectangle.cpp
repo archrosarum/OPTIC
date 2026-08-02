@@ -94,13 +94,13 @@ Rectangle::Rectangle(const Rectangle& original) : Node(original)
             SDL_FRect top = { geometry.x, geometry.y, geometry.w, outline_thickness_ * parent->get_multiplier()};
             SDL_RenderFillRect(internal_renderer, &top);
 
-            SDL_FRect bottom = { geometry.x, geometry.y + geometry.h - outline_thickness_ * parent->get_multiplier(), geometry.w, outline_thickness_ };
+            SDL_FRect bottom = { geometry.x, geometry.y + geometry.h - outline_thickness_ * parent->get_multiplier(), geometry.w, outline_thickness_ * parent->get_multiplier()};
             SDL_RenderFillRect(internal_renderer, &bottom);
 
             SDL_FRect left = { geometry.x, geometry.y, outline_thickness_ * parent->get_multiplier(), geometry.h };
             SDL_RenderFillRect(internal_renderer, &left);
 
-            SDL_FRect right = { geometry.x + geometry.w - outline_thickness_, geometry.y, outline_thickness_ * parent->get_multiplier(), geometry.h };
+            SDL_FRect right = { geometry.x + geometry.w - outline_thickness_ * parent->get_multiplier(), geometry.y, outline_thickness_ * parent->get_multiplier(), geometry.h };
             SDL_RenderFillRect(internal_renderer, &right);
             
         }

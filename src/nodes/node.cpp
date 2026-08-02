@@ -8,7 +8,7 @@ namespace OPTIC {
     Node::Node() {
         this->position_ = {0.0f, 0.0f};
         this->anchor_ = {0.0f, 0.0f};
-        this->size_ = {0.0f, 0.0f};
+        this->size_ = {2.0f, 2.0f};
 
         this->visibility_ = SHOWN;
 
