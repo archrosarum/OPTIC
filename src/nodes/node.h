@@ -28,7 +28,18 @@ namespace OPTIC {
 
         // Family tree
 
-        void                add_child(Node* child);                       // sets parent/child relationship from the parent node
+        template <typename Self>
+        Self* add_child(this Self& self, Node* child) {
+            child->parent(&self);
+            self.children_.push_back(child);
+
+            if (self.check_for_window() != nullptr) {
+                child->rasterize_to_window(self.check_for_window());
+            }
+
+            return &self;
+        }
+
         void                is_child_of(Node* t_parent);                  // sets parent/child relationship from the child node
 
         void                parent(Node* t_parent);                       // mutator
@@ -65,7 +76,12 @@ namespace OPTIC {
 
         // Positioning
 
-        Node*               position(Normalized t_position);              // mutator
+        template <typename Self>
+        Self* position(this Self& self, Normalized t_position) {
+            self.position_ = t_position;
+            return &self;
+        }
+
         Normalized          position();                                   // accessor
 
         void                position_px(Pixel t_position_px);             // mutator
@@ -76,7 +92,12 @@ namespace OPTIC {
 
         // Sizing
 
-        Node*               size(Normalized t_size);                      // mutator
+        template <typename Self>
+        Self* size(this Self& self, Normalized t_size) {
+            self.size_ = t_size;
+            return &self;
+        }
+
         Normalized          size();                                       // accessor
 
         void                size_px(Pixel t_size_px);                     // mutator

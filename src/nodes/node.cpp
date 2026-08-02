@@ -117,15 +117,6 @@ namespace OPTIC {
 
     // Family tree
 
-    void Node::add_child(Node* child) {
-        child->parent(this);
-        children_.push_back(child);
-
-        if (check_for_window() != nullptr) {
-            child->rasterize_to_window(check_for_window());
-        }
-    }
-
     void Node::is_child_of(Node* t_parent) {
         parent(t_parent);
         t_parent->add_child(this);
@@ -146,12 +137,6 @@ namespace OPTIC {
     }
 
     // Positioning
-
-    Node* Node::position(Normalized t_position) {
-        this->position_ = t_position;
-
-        return this;
-    }
 
     Normalized Node::position() {
         return this->position_;
@@ -179,12 +164,6 @@ namespace OPTIC {
     }
 
     // Sizing
-
-    Node* Node::size(Normalized t_size) {
-        this->size_ = t_size;
-
-        return this;
-    }
 
     Normalized Node::size() {
         return this->size_;

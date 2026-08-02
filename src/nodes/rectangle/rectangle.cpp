@@ -8,8 +8,6 @@ namespace OPTIC {
     // constructor and destructor
 
     Rectangle::Rectangle() : Node() {
-        this->size({0.25f, 0.25f});
-
         filled_ = true;
         outlined_ = false;
         outline_thickness_ = 1;
