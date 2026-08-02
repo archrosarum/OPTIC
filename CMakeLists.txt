@@ -16,7 +16,7 @@ add_library(${LIBRARY_NAME}
     src/nodes/node.cpp
         src/nodes/frame/frame.cpp
             src/nodes/frame/window_frame/window_frame.cpp
-        #src/nodes/text/text.cpp
+        src/nodes/text/text.cpp
         src/nodes/rectangle/rectangle.cpp
 )
 

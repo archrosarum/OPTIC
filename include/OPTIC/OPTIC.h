@@ -16,14 +16,11 @@
 #include "../src/nodes/node.h"
 #define NEW_NODE(...) (new OPTIC::Node( __VA_ARGS__))
 
-/*
+
 
 
 // Text (Node)
 #include "../src/nodes/text/text.h"
-#define NEW_TEXT(...) (new OPTIC::Text(__VA_ARGS__))
-
-*/
 
 // Rectangle (Node)
 #include "../src/nodes/rectangle/rectangle.h"

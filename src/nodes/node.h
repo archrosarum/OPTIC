@@ -28,6 +28,24 @@ namespace OPTIC {
         void                parent(Node* t_parent);                       // mutator
         Node*               parent();                                     // accessor
 
+        const std::vector<Node*>& children() const { return children_; }
+
+        // Events
+
+        void                bind_event(void (*&event_func)(Node*), void (*action_func)(Node*));
+
+        void                (*on_curser_enter)(Node* self) = nullptr;
+        void                (*on_curser_leave)(Node* self) = nullptr;
+
+        void                (*on_cursor_press)(Node* self) = nullptr;
+        void                (*on_cursor_release)(Node* self) = nullptr;
+
+        void                (*on_left_cursor_press)(Node* self) = nullptr;
+        void                (*on_left_cursor_release)(Node* self) = nullptr;
+
+        void                (*on_right_cursor_press)(Node* self) = nullptr;
+        void                (*on_right_cursor_release)(Node* self) = nullptr;
+
         // Looping
 
         void                tick();                                       // entrypoint for parent
@@ -74,6 +92,8 @@ namespace OPTIC {
         Pixel               size_px_;                            // size as raw computed pixels
 
         Visibility          visibility_;                         // controlls whether the node will render
+
+        bool                touching_cursor;
 
         Node*               parent_;                             // pointer to the parent node
         std::vector<Node*>  children_;                           // all children nodes

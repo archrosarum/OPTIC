@@ -71,10 +71,14 @@ namespace OPTIC {
 
         Pixel               pixel_dimentions();
 
-        float               aspect_ratio();           
+        float               aspect_ratio();    
+        
+        void                try_text_support();
+
+        bool                was_mouse_down;
+        bool                mouse_down;
 
     private:
-        void                try_text_support();
         bool                has_text_support;
 
         std::vector<OPTIC::Node*> children;

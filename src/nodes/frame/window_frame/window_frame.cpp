@@ -16,7 +16,7 @@ namespace OPTIC {
 
 
     void WindowFrame::handle_display_change() {
-
+        Node::handle_display_change();
     }
 
     void WindowFrame::process() {

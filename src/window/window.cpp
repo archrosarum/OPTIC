@@ -7,7 +7,7 @@
 
 namespace OPTIC {
     SDL_HitTestResult SDLCALL borderless_callback(SDL_Window* window, const SDL_Point* point, void* data) {
-        if (point->y < 32) {
+        if (point->y < 12 && point->y > 2) {
             return SDL_HITTEST_DRAGGABLE;
         } else {
             return SDL_HITTEST_NORMAL;
@@ -21,6 +21,7 @@ namespace OPTIC {
         background = {255, 255, 255};
         scale = 1;
         has_text_support = false;
+        mouse_down = false;
 
         SDL_CreateWindowAndRenderer(
             this->title.c_str(),
@@ -68,12 +69,9 @@ namespace OPTIC {
         this->pixel_density = SDL_GetWindowPixelDensity(sdl_window);
         this->display_scale = SDL_GetWindowDisplayScale(sdl_window);
 
-        for (int i = 0; i < children.size(); i++) {
-            children.at(i)->handle_display_change();
-        }
-
         pixel_dimentions_ = {this->pixel_width, this->pixel_height};
 
+        frame_.handle_display_change();   // <-- recurse through the REAL tree (frame_ is itself a Node)
         frame_.rasterize_to_window(this);
     }
 
@@ -112,15 +110,20 @@ namespace OPTIC {
 
     // Window children functions
 
+    void prepare_text_recursive(OPTIC::Node* node, OPTIC::Window* window) {
+        if (auto* text_node = dynamic_cast<OPTIC::Text*>(node)) {
+            window->try_text_support();
+            text_node->cache();
+        }
+        for (OPTIC::Node* child : node->children()) {
+            prepare_text_recursive(child, window);
+        }
+    }
+
     OPTIC::Window* Window::add_child(OPTIC::Node* new_node) {
         frame_.add_child(new_node);
 
-        /*
-        if (auto* node_cast = dynamic_cast<OPTIC::Text*>(new_node)) {
-            try_text_support();
-            node_cast->cache();
-        } 
-        */
+        prepare_text_recursive(new_node, this);
 
         return this;
     }

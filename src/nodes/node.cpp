@@ -46,7 +46,52 @@ namespace OPTIC {
     }
 
     void Node::tick() {
+
         process();
+
+        Pixel pos = position_px();
+        Pixel size = size_px();
+
+        Window* win = check_for_window();
+
+        float mx, my;
+        
+        Uint32 cursor = SDL_GetMouseState(&mx, &my);
+
+        if (win != nullptr) {
+            float density = win->get_pixel_density();
+            mx *= density;
+            my *= density;
+        }
+
+        bool was_touching_cursor = touching_cursor;
+        touching_cursor = 
+            mx >= pos.x &&
+            mx <= pos.x + size.x &&
+            my >= pos.y &&
+            my <= pos.y + size.y;
+
+        if (!was_touching_cursor && touching_cursor) {
+            if (on_curser_enter != nullptr) {
+                on_curser_enter(this);
+            }
+        }
+        if (was_touching_cursor && !touching_cursor) {
+            if (on_curser_leave != nullptr) {
+                on_curser_leave(this);
+            }
+        }
+        if (touching_cursor && check_for_window()->mouse_down && !(check_for_window()->was_mouse_down)) {
+            if (on_cursor_press != nullptr) {
+                on_cursor_press(this);
+            }
+        }
+        if (!(check_for_window()->mouse_down) && check_for_window()->was_mouse_down) {
+            if (on_cursor_release != nullptr) {
+                on_cursor_release(this);
+            }
+        }
+
         if (this->visibility_ == SHOWN) {
             render();
         }
@@ -65,7 +110,9 @@ namespace OPTIC {
     }
 
     void Node::handle_display_change() {
-        // meant to be overwritten
+        for (int i = 0; i < children_.size(); i++) {
+            children_.at(i)->handle_display_change();
+        }
     }
 
     // Family tree
@@ -90,6 +137,12 @@ namespace OPTIC {
 
     Node* Node::parent() {
         return this->parent_;
+    }
+
+    // Events
+
+    void Node::bind_event(void (*&event_func)(Node*), void (*action_funct)(Node*)) {
+        event_func = action_funct;
     }
 
     // Positioning
